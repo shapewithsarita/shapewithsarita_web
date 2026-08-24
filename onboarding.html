@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Assessment — ShapeWithSarita</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg:#FDF6EE; --surface:#FFFFFF; --ink:#241C15; --ink-soft:#7A6C5C;
+    --coral:#DD5B3E; --coral-soft:#FBE4DC; --coral-dark:#B84226;
+    --teal:#1E7A6C; --teal-soft:#DFF0EC; --teal-dark:#145B50;
+    --gold:#E4A439; --gold-soft:#FBEBD2;
+    --line:#EEE1D0; --radius:16px; --radius-sm:10px;
+    --display:'Poppins', sans-serif; --body:'Inter', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--bg); color:var(--ink); font-family:var(--body); line-height:1.6; -webkit-font-smoothing:antialiased;}
+  a{color:inherit;} button{font-family:inherit; cursor:pointer; border:none; background:none;}
+  :focus-visible{outline:2px solid var(--coral); outline-offset:2px;}
+  h1,h2,h3{font-family:var(--display); font-weight:700; letter-spacing:-0.01em;}
+  p{color:var(--ink-soft);}
+
+  header{border-bottom:1px solid var(--line); padding:18px 28px; display:flex; justify-content:space-between; align-items:center; background:var(--surface);}
+  .brand{font-family:var(--display); font-weight:700; font-size:18px; display:flex; align-items:center; gap:9px; color:var(--ink);}
+  .brand .mark{width:22px; height:22px; border-radius:50%; background:linear-gradient(135deg, var(--coral), var(--gold)); flex-shrink:0;}
+  .exit{font-size:13.5px; color:var(--ink-soft); font-weight:600;}
+  .exit:hover{color:var(--ink);}
+
+  .progress-wrap{max-width:640px; margin:0 auto; padding:28px 28px 0;}
+  .progress-meta{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px;}
+  .progress-label{font-size:12.5px; font-weight:700; letter-spacing:0.05em; color:var(--coral-dark); text-transform:uppercase;}
+  .progress-stepname{font-size:12.5px; color:var(--ink-soft); font-weight:600;}
+  .progress-track{height:6px; background:var(--line); border-radius:999px; position:relative; overflow:hidden;}
+  .progress-fill{height:100%; background:linear-gradient(90deg, var(--coral), var(--gold)); border-radius:999px; transition:width .3s ease; width:14.28%;}
+
+  main{max-width:640px; margin:0 auto; padding:40px 28px 80px;}
+  .panel{display:none;}
+  .panel.active{display:block; animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  .eyebrow{font-size:12.5px; font-weight:700; letter-spacing:0.06em; color:var(--coral-dark); text-transform:uppercase; margin-bottom:14px;}
+  .panel h2{font-size:clamp(23px,3.2vw,29px); margin-bottom:10px;}
+  .panel > p.intro{font-size:14.5px; margin-bottom:30px; max-width:480px;}
+  .gold-badge{display:inline-block; background:var(--gold-soft); color:#9A6B1F; font-size:11.5px; font-weight:700; padding:5px 12px; border-radius:999px; margin-bottom:14px; letter-spacing:0.03em;}
+
+  .field{margin-bottom:20px;}
+  .field label{display:block; font-size:13.5px; font-weight:600; color:var(--ink); margin-bottom:8px;}
+  .field .hint{font-size:12px; color:var(--ink-soft); margin-top:6px;}
+  .field input[type=text], .field input[type=number], .field input[type=email], .field input[type=tel], .field select, .field textarea{
+    width:100%; padding:13px 15px; border:1.5px solid var(--line); background:var(--surface);
+    font-family:var(--body); font-size:14.5px; color:var(--ink); border-radius:var(--radius-sm);
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{border-color:var(--coral);}
+  .field textarea{resize:vertical; min-height:70px;}
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px;}
+
+  .option-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .option-card{border:1.5px solid var(--line); border-radius:var(--radius-sm); padding:16px; cursor:pointer; background:var(--surface); transition:border-color .15s ease, background .15s ease;}
+  .option-card h4{font-family:var(--display); font-size:14px; font-weight:600; margin-bottom:3px;}
+  .option-card p{font-size:12px; margin:0;}
+  .option-card.selected{border-color:var(--coral); background:var(--coral-soft);}
+  .option-card.selected h4{color:var(--coral-dark);}
+
+  .chip-select{display:flex; flex-wrap:wrap; gap:9px;}
+  .chip-opt{font-size:13.5px; font-weight:600; padding:10px 16px; border-radius:999px; border:1.5px solid var(--line); color:var(--ink-soft); background:var(--surface); cursor:pointer;}
+  .chip-opt.selected{border-color:var(--coral); background:var(--coral-soft); color:var(--coral-dark);}
+
+  .nav-buttons{display:flex; justify-content:space-between; align-items:center; margin-top:36px;}
+  .btn{font-weight:700; font-size:14px; padding:13px 26px; border-radius:999px; display:inline-flex; align-items:center; gap:8px;}
+  .btn-primary{background:var(--coral); color:#fff; box-shadow:0 8px 20px rgba(221,91,62,0.28);}
+  .btn-primary:hover{background:var(--coral-dark);}
+  .btn-back{color:var(--ink-soft); font-weight:600;}
+  .btn-back:hover{color:var(--ink);}
+  .btn-whatsapp{background:#25D366; color:#fff;}
+
+  /* review */
+  .review-block{border:1.5px solid var(--line); border-radius:var(--radius-sm); margin-bottom:14px; overflow:hidden;}
+  .review-head{display:flex; justify-content:space-between; align-items:center; padding:14px 18px; background:var(--coral-soft); }
+  .review-head span:first-child{font-size:11.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--coral-dark);}
+  .review-head button{font-size:12.5px; color:var(--coral-dark); font-weight:700;}
+  .review-rows{padding:6px 18px;}
+  .review-row{display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--line); font-size:13.5px; gap:20px;}
+  .review-row:last-child{border-bottom:none;}
+  .review-row span:first-child{color:var(--ink-soft);}
+  .review-row span:last-child{text-align:right; color:var(--ink); font-weight:600; max-width:60%;}
+
+  .whatsapp-note{background:var(--teal-soft); border-radius:var(--radius-sm); padding:16px 18px; font-size:13.5px; color:var(--teal-dark); margin-bottom:24px; display:flex; gap:10px; align-items:flex-start;}
+
+  /* success */
+  .success{text-align:center; padding:56px 0;}
+  .success .mark-lg{width:56px; height:56px; border-radius:50%; background:linear-gradient(135deg, var(--coral), var(--gold)); margin:0 auto 24px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:26px;}
+  .success h2{margin-bottom:12px;}
+  .success p{max-width:420px; margin:0 auto 30px;}
+  .success .btns{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
+
+  .next-steps{display:flex; flex-direction:column; gap:14px; margin:8px 0 28px;}
+  .next-step{display:grid; grid-template-columns:36px 1fr; gap:14px; background:var(--surface); border:1.5px solid var(--line); border-radius:var(--radius-sm); padding:18px 20px; text-align:left;}
+  .next-step .ns-num{width:32px; height:32px; border-radius:50%; background:var(--coral-soft); color:var(--coral-dark); font-family:var(--display); font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center;}
+  .next-step h4{font-family:var(--display); font-size:14.5px; font-weight:700; margin-bottom:4px;}
+  .next-step p{font-size:13px; margin:0;}
+
+  @media(max-width:560px){
+    .row2, .row3, .option-grid{grid-template-columns:1fr;}
+    main{padding:32px 20px 60px;}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none !important; animation:none !important;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand"><span class="mark"></span>ShapeWithSarita</div>
+  <a class="exit" href="index.html">Save &amp; exit</a>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-meta">
+    <span class="progress-label" id="stepCounter">Step 1 of 7</span>
+    <span class="progress-stepname" id="stepName">Basic Information</span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
+<main>
+  <form id="wizard" onsubmit="return false;">
+
+    <!-- STEP 1: BASIC -->
+    <div class="panel active" data-step="1">
+      <div class="eyebrow">01 / Basic information</div>
+      <h2>Let's start with a few basics.</h2>
+      <p class="intro">Just enough to know who you are and how to reach you.</p>
+      <div class="row2">
+        <div class="field"><label for="name">Full name</label><input type="text" id="name" placeholder="e.g. Priya Sharma"></div>
+        <div class="field"><label for="age">Age</label><input type="number" id="age" placeholder="34"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="email">Email</label><input type="email" id="email" placeholder="you@example.com"></div>
+        <div class="field"><label for="whatsapp">WhatsApp number</label><input type="tel" id="whatsapp" placeholder="+91 98765 43210"></div>
+      </div>
+      <div class="field"><label for="city">City</label><input type="text" id="city" placeholder="e.g. Pune"></div>
+      <div class="field">
+        <label>Occupation</label>
+        <div class="chip-select" data-field="occupation">
+          <div class="chip-opt" data-value="Homemaker">Homemaker</div>
+          <div class="chip-opt" data-value="Working professional">Working professional</div>
+          <div class="chip-opt" data-value="Business owner">Business owner</div>
+          <div class="chip-opt" data-value="Other">Other</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: BODY MEASUREMENTS -->
+    <div class="panel" data-step="2">
+      <div class="eyebrow">02 / Body measurements</div>
+      <h2>A few starting measurements.</h2>
+      <p class="intro">This is how you and Sarita will track real progress, beyond just the scale.</p>
+      <div class="row2">
+        <div class="field"><label for="height">Height (cm)</label><input type="number" id="height" placeholder="160"></div>
+        <div class="field"><label for="weight">Weight (kg)</label><input type="number" id="weight" placeholder="68"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="waist">Waist (cm)</label><input type="number" id="waist" placeholder="88"></div>
+        <div class="field"><label for="hip">Hip (cm)</label><input type="number" id="hip" placeholder="104"></div>
+      </div>
+      <div class="field"><label for="neck">Neck (cm) <span style="color:var(--ink-soft); font-weight:400;"> optional</span></label><input type="number" id="neck" placeholder="Optional"></div>
+    </div>
+
+    <!-- STEP 3: GOAL -->
+    <div class="panel" data-step="3">
+      <div class="eyebrow">03 / Your goal</div>
+      <h2>What are you working toward?</h2>
+      <p class="intro">Pick the one that matters most right now this shapes everything Sarita builds for you.</p>
+      <div class="field">
+        <div class="chip-select" data-field="goal">
+          <div class="chip-opt" data-value="Weight loss">Weight loss</div>
+          <div class="chip-opt" data-value="Fat loss">Fat loss</div>
+          <div class="chip-opt" data-value="Muscle gain">Muscle gain</div>
+          <div class="chip-opt" data-value="Strength">Strength</div>
+          <div class="chip-opt" data-value="General fitness">General fitness</div>
+          <div class="chip-opt" data-value="Better eating habits">Better eating habits</div>
+          <div class="chip-opt" data-value="Energy">Energy</div>
+          <div class="chip-opt" data-value="Other">Other</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: LIFESTYLE -->
+    <div class="panel" data-step="4">
+      <div class="eyebrow">04 / Lifestyle</div>
+      <h2>Tell us about your day-to-day.</h2>
+      <p class="intro">Your plan only works if it fits the life you're actually living.</p>
+      <div class="row2">
+        <div class="field"><label for="steps">Average daily steps</label>
+          <select id="steps"><option value="">Select</option><option>Under 3,000</option><option>3,000–6,000</option><option>6,000–10,000</option><option>10,000+</option></select>
+        </div>
+        <div class="field"><label for="sittingHours">Sitting hours per day</label>
+          <select id="sittingHours"><option value="">Select</option><option>Under 4 hours</option><option>4–8 hours</option><option>8–12 hours</option><option>12+ hours</option></select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Do you currently exercise?</label>
+        <div class="chip-select" data-field="exercise">
+          <div class="chip-opt" data-value="Not at all">Not at all</div>
+          <div class="chip-opt" data-value="Sometimes">Sometimes</div>
+          <div class="chip-opt" data-value="Regularly">Regularly</div>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="sleep">Average sleep</label>
+          <select id="sleep"><option value="">Select</option><option>Less than 5 hours</option><option>5–6 hours</option><option>7–8 hours</option><option>8+ hours</option></select>
+        </div>
+        <div class="field"><label for="water">Water (glasses/day)</label><input type="number" id="water" placeholder="6"></div>
+      </div>
+      <div class="field"><label for="workSchedule">Work schedule</label>
+        <select id="workSchedule"><option value="">Select</option><option>Not working / full-time home</option><option>Home-based work</option><option>Office, fixed hours</option><option>Shift work</option><option>Flexible / freelance</option></select>
+      </div>
+      <div class="field">
+        <label>Do family responsibilities interfere with your time?</label>
+        <div class="chip-select" data-field="family">
+          <div class="chip-opt" data-value="Not much">Not much</div>
+          <div class="chip-opt" data-value="Somewhat">Somewhat</div>
+          <div class="chip-opt" data-value="Significantly">Significantly</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5: NUTRITION -->
+    <div class="panel" data-step="5">
+      <div class="eyebrow">05 / Nutrition</div>
+      <h2>What does your food look like right now?</h2>
+      <p class="intro">Your plan works with what you already cook and eat not against it.</p>
+      <div class="field">
+        <label>Diet preference</label>
+        <div class="chip-select" data-field="diet">
+          <div class="chip-opt" data-value="Vegetarian">Vegetarian</div>
+          <div class="chip-opt" data-value="Egg vegetarian">Egg vegetarian</div>
+          <div class="chip-opt" data-value="Non-vegetarian">Non-vegetarian</div>
+          <div class="chip-opt" data-value="Vegan">Vegan</div>
+          <div class="chip-opt" data-value="Jain">Jain</div>
+          <div class="chip-opt" data-value="Other">Other</div>
+        </div>
+      </div>
+      <div class="field"><label for="allergies">Food allergies or intolerances</label>
+        <textarea id="allergies" placeholder="e.g. lactose intolerant, no peanuts — leave blank if none"></textarea>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="breakfast">Typical breakfast</label><input type="text" id="breakfast" placeholder="e.g. Poha, tea"></div>
+        <div class="field"><label for="lunch">Typical lunch</label><input type="text" id="lunch" placeholder="e.g. Roti, sabzi, dal, rice"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="snack">Evening snack</label><input type="text" id="snack" placeholder="e.g. Tea, biscuits"></div>
+        <div class="field"><label for="dinner">Typical dinner</label><input type="text" id="dinner" placeholder="e.g. Roti, sabzi"></div>
+      </div>
+      <div class="field">
+        <label>How often do you eat outside / order in?</label>
+        <div class="chip-select" data-field="eatingout">
+          <div class="chip-opt" data-value="Rarely">Rarely</div>
+          <div class="chip-opt" data-value="1-2x a week">1–2x a week</div>
+          <div class="chip-opt" data-value="3-5x a week">3–5x a week</div>
+          <div class="chip-opt" data-value="Daily">Daily</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6: BIGGEST DIFFICULTY (the gold question) -->
+    <div class="panel" data-step="6">
+      <div class="gold-badge">✨ This one matters most</div>
+      <div class="eyebrow">06 / Your biggest difficulty</div>
+      <h2>What's the biggest thing stopping you from reaching your goal?</h2>
+      <p class="intro">Be honest this single answer shapes how Sarita coaches you from day one.</p>
+      <div class="option-grid" data-field="difficulty">
+        <div class="option-card" data-value="Lack of time"><h4>Lack of time</h4><p>There just aren't enough hours in the day.</p></div>
+        <div class="option-card" data-value="Lack of motivation"><h4>Lack of motivation</h4><p>I know what to do, but can't get started.</p></div>
+        <div class="option-card" data-value="Family responsibilities"><h4>Family responsibilities</h4><p>Everyone else comes before me.</p></div>
+        <div class="option-card" data-value="Don't know what to eat"><h4>Don't know what to eat</h4><p>Nutrition feels confusing or contradictory.</p></div>
+        <div class="option-card" data-value="Don't know how to exercise"><h4>Don't know how to exercise</h4><p>Not sure what's safe or effective for me.</p></div>
+        <div class="option-card" data-value="Can't stay consistent"><h4>Can't stay consistent</h4><p>I start strong, then fall off within days.</p></div>
+        <div class="option-card" data-value="Cravings"><h4>Cravings</h4><p>I can't control cravings once they hit.</p></div>
+        <div class="option-card" data-value="Eating outside"><h4>Eating outside</h4><p>Restaurant and takeout food derails me.</p></div>
+        <div class="option-card" data-value="Work stress"><h4>Work stress</h4><p>Stress makes everything harder to manage.</p></div>
+        <div class="option-card" data-value="Other"><h4>Other</h4><p>Something else entirely.</p></div>
+      </div>
+    </div>
+
+    <!-- STEP 7: REVIEW -->
+    <div class="panel" data-step="7">
+      <div class="eyebrow">07 / Review &amp; submit</div>
+      <h2>Check everything before you send it to Sarita.</h2>
+      <p class="intro">You can edit any section below.</p>
+      <div id="reviewContainer"></div>
+      <div class="whatsapp-note">💬 <span>Sarita personally reviews every assessment and will message you on <strong>WhatsApp within 24 hours</strong> with next steps — no payment needed to submit this.</span></div>
+    </div>
+
+    <!-- SUCCESS + NEXT STEPS -->
+    <div class="panel" data-step="8">
+      <div class="success">
+        <div class="mark-lg">🌿</div>
+        <h2>Your assessment is with Sarita.</h2>
+        <p>Thank you for sharing all this. Here's what happens next.</p>
+      </div>
+
+      <div class="next-steps">
+        <div class="next-step"><span class="ns-num">1</span><div><h4>Free consultation call</h4><p>Sarita calls you to understand your goal, your routine and what you actually need — no pressure, no commitment.</p></div></div>
+        <div class="next-step"><span class="ns-num">2</span><div><h4>A payment link matched to your plan</h4><p>Based on that call, she sends a payment link for the program and duration that genuinely fits you.</p></div></div>
+        <div class="next-step"><span class="ns-num">3</span><div><h4>Your plan, built around your life</h4><p>Once you're enrolled, your training and nutrition are built around your real routine — then the daily WhatsApp accountability begins.</p></div></div>
+      </div>
+
+      <div class="success" style="padding-top:8px;">
+        <div class="btns">
+          <button type="button" class="btn btn-whatsapp" onclick="openWhatsAppChat()">💬 Message Sarita on WhatsApp</button>
+          <button type="button" class="btn btn-primary" onclick="location.href='index.html'">Back to Home</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-buttons" id="navButtons">
+      <button type="button" class="btn btn-back" id="backBtn" onclick="goStep(current-1)">← Back</button>
+      <button type="button" class="btn btn-primary" id="nextBtn">Continue</button>
+    </div>
+  </form>
+</main>
+
+<script>
+  // Google Apps Script Web App URL
+  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycby9oipvgIFvd_0d3MZhKsj9_k-7rNCKiwMRifGHneYriVkeKVFqEVsYzZZDDFAeX98-/exec';
+
+  const stepNames = ['Basic Information','Body Measurements','Your Goal','Lifestyle','Nutrition','Biggest Difficulty','Review & Submit'];
+  const totalSteps = 7;
+  let current = 1;
+  const data = {};
+
+  document.querySelectorAll('.chip-select .chip-opt').forEach(opt=>{
+    opt.addEventListener('click', ()=>{
+      const group = opt.parentElement;
+      const field = group.dataset.field;    
+      group.querySelectorAll('.chip-opt').forEach(o=>o.classList.remove('selected'));
+      opt.classList.add('selected');
+      data[field] = opt.dataset.value;
+    });
+  });
+  document.querySelectorAll('.option-grid .option-card').forEach(opt=>{
+    opt.addEventListener('click', ()=>{
+      const group = opt.parentElement;
+      group.querySelectorAll('.option-card').forEach(o=>o.classList.remove('selected'));
+      opt.classList.add('selected');
+      data[group.dataset.field] = opt.dataset.value;
+    });
+  });
+
+  function collectTextInputs(){
+    ['name','age','email','whatsapp','city','height','weight','waist','hip','neck','steps','sittingHours','sleep','water','workSchedule','allergies','breakfast','lunch','snack','dinner'].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el) data[id] = el.value;
+    });
+  }
+
+  function buildReview(){
+    collectTextInputs();
+    const sections = [
+      {title:'Basic information', step:1, rows:[['Name',data.name],['Age',data.age],['Email',data.email],['WhatsApp',data.whatsapp],['City',data.city],['Occupation',data.occupation]]},
+      {title:'Body measurements', step:2, rows:[['Height',data.height?data.height+' cm':''],['Weight',data.weight?data.weight+' kg':''],['Waist',data.waist?data.waist+' cm':''],['Hip',data.hip?data.hip+' cm':''],['Neck',data.neck?data.neck+' cm':'Not provided']]},
+      {title:'Your goal', step:3, rows:[['Primary goal',data.goal]]},
+      {title:'Lifestyle', step:4, rows:[['Average steps',data.steps],['Currently exercise',data.exercise],['Sitting hours',data.sittingHours],['Sleep',data.sleep],['Water',data.water?data.water+' glasses/day':''],['Work schedule',data.workSchedule],['Family responsibilities',data.family]]},
+      {title:'Nutrition', step:5, rows:[['Diet preference',data.diet],['Allergies/intolerances',data.allergies||'None listed'],['Breakfast',data.breakfast],['Lunch',data.lunch],['Evening snack',data.snack],['Dinner',data.dinner],['Eating outside',data.eatingout]]},
+      {title:'Biggest difficulty', step:6, rows:[['What\'s stopping you',data.difficulty]]},
+    ];
+    document.getElementById('reviewContainer').innerHTML = sections.map(s=>`
+      <div class="review-block">
+        <div class="review-head"><span>${s.title}</span><button type="button" onclick="goStep(${s.step})">Edit</button></div>
+        <div class="review-rows">
+          ${s.rows.map(r=>`<div class="review-row"><span>${r[0]}</span><span>${r[1] && r[1].length ? r[1] : '—'}</span></div>`).join('')}
+        </div>
+      </div>`).join('');
+  }
+
+  function goStep(n){
+    if(n < 1) return;
+    if(n > totalSteps + 1) return;
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    document.querySelector(`.panel[data-step="${n}"]`).classList.add('active');
+    current = n;
+
+    const progWrap = document.querySelector('.progress-wrap');
+    const navButtons = document.getElementById('navButtons');
+    if(n > totalSteps){
+      progWrap.style.display = 'none';
+      navButtons.style.display = 'none';
+    } else {
+      progWrap.style.display = 'block';
+      navButtons.style.display = 'flex';
+      document.getElementById('stepCounter').textContent = `Step ${n} of ${totalSteps}`;
+      document.getElementById('stepName').textContent = stepNames[n-1];
+      document.getElementById('progressFill').style.width = (n/totalSteps*100)+'%';
+      document.getElementById('backBtn').style.visibility = n===1 ? 'hidden' : 'visible';
+      document.getElementById('nextBtn').textContent = n===totalSteps ? 'Submit to Sarita' : 'Continue';
+    }
+    if(n === totalSteps) buildReview();
+    window.scrollTo({top:0, behavior:'auto'});
+  }
+
+  async function submitAssessment(){
+    collectTextInputs();
+    const nextBtn = document.getElementById('nextBtn');
+    const originalText = nextBtn.textContent;
+    nextBtn.textContent = 'Submitting…';
+    nextBtn.disabled = true;
+
+    if(SHEET_WEBHOOK_URL && !SHEET_WEBHOOK_URL.includes('PASTE_YOUR')){
+      try{
+        await fetch(SHEET_WEBHOOK_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {'Content-Type': 'text/plain;charset=utf-8'},
+          body: JSON.stringify(data)
+        });
+      } catch(err){
+        console.error('Submission error:', err);
+      }
+    } else {
+      console.warn('SHEET_WEBHOOK_URL is not set.');
+    }
+
+    nextBtn.textContent = originalText;
+    nextBtn.disabled = false;
+    goStep(totalSteps+1);
+  }
+
+  document.getElementById('nextBtn').addEventListener('click', ()=>{
+    if(current === totalSteps){ submitAssessment(); return; }
+    goStep(current+1);
+  });
+
+  // WhatsApp chat handler for success screen
+  function openWhatsAppChat() {
+    const name = document.getElementById('name')?.value || 'there';
+    const text = `Hi Sarita! I just submitted my assessment on ShapeWithSarita. My name is ${name}. I'm ready to discuss my fitness plan!`;
+    const phoneNumber = '917903805368'; // Your WhatsApp Business number
+    
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
+    window.open(whatsappURL, '_blank');
+  }
+</script>
+
+</body>
+</html>

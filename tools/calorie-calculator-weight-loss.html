@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Calorie Calculator for Weight Loss</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --parchment:#FAF6EC;
+    --ink:#20241F;
+    --teal:#1F4B43;
+    --teal-soft:#2E6358;
+    --gold:#C9971F;
+    --coral:#C1573B;
+    --line:#DED4BE;
+    --card:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--parchment);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    display:flex;
+    justify-content:center;
+    padding:48px 20px;
+    min-height:100vh;
+  }
+  .wrap{width:100%;max-width:560px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--teal-soft);
+    margin-bottom:8px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:38px;
+    line-height:1.08;
+    margin:0 0 6px;
+    color:var(--teal);
+  }
+  .sub{
+    font-size:15px;
+    color:#5B5A50;
+    margin-bottom:32px;
+    max-width:44ch;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:28px;
+    box-shadow:0 1px 2px rgba(32,36,31,0.04);
+  }
+  .row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin-bottom:16px;
+  }
+  .field label{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#8A8878;
+    margin-bottom:6px;
+  }
+  .field .inputbox{
+    display:flex;
+    align-items:baseline;
+    border:1.5px solid var(--line);
+    border-radius:8px;
+    padding:10px 12px;
+    transition:border-color .15s ease;
+  }
+  .field .inputbox:focus-within{border-color:var(--teal);}
+  .field input{
+    border:none;
+    outline:none;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:20px;
+    width:100%;
+    background:transparent;
+    color:var(--ink);
+  }
+  .field .unit{
+    font-size:12px;
+    color:#A6A392;
+    font-family:'IBM Plex Mono', monospace;
+    white-space:nowrap;
+    margin-left:6px;
+  }
+  .toggle-row{
+    display:flex;
+    gap:6px;
+    margin-bottom:16px;
+  }
+  .toggle-row button{
+    flex:1;
+    padding:9px;
+    border-radius:7px;
+    border:1.5px solid var(--line);
+    background:transparent;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.05em;
+    color:#8A8878;
+    cursor:pointer;
+  }
+  .toggle-row button.active{
+    background:var(--teal);
+    border-color:var(--teal);
+    color:#fff;
+  }
+
+  .activity-select label, .pace-select label{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#8A8878;
+    margin-bottom:8px;
+  }
+  .activity-option, .pace-option{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border:1.5px solid var(--line);
+    border-radius:8px;
+    padding:11px 14px;
+    margin-bottom:8px;
+    cursor:pointer;
+    transition:border-color .12s ease, background .12s ease;
+  }
+  .activity-option:hover, .pace-option:hover{border-color:var(--teal-soft);}
+  .activity-option.selected, .pace-option.selected{
+    border-color:var(--teal);
+    background:#F0F5F2;
+  }
+  .a-title, .p-title{
+    font-size:13.5px;
+    font-weight:500;
+  }
+  .a-desc, .p-desc{
+    font-size:11.5px;
+    color:#9B9885;
+    margin-top:2px;
+  }
+  .a-mult, .p-rate{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--teal-soft);
+    white-space:nowrap;
+    margin-left:12px;
+    text-align:right;
+  }
+
+  .calc-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    background:var(--gold);
+    color:#25200A;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:.02em;
+    cursor:pointer;
+    transition:transform .12s ease, background .15s ease;
+    margin-top:6px;
+  }
+  .calc-btn:hover{background:#B98916;}
+  .calc-btn:active{transform:scale(0.98);}
+
+  .result{
+    margin-top:28px;
+    padding-top:24px;
+    border-top:1px dashed var(--line);
+    display:none;
+  }
+  .result.show{display:block;}
+  .cal-number{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:52px;
+    color:var(--teal);
+    line-height:1;
+  }
+  .cal-unit{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:#8A8878;
+    margin-left:6px;
+  }
+  .cal-desc{
+    font-size:13px;
+    color:#5B5A50;
+    margin-top:10px;
+    max-width:46ch;
+  }
+  .breakdown{
+    margin-top:22px;
+    display:grid;
+    gap:10px;
+  }
+  .breakdown-row{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 14px;
+    background:#F6F2E7;
+    border-radius:8px;
+  }
+  .breakdown-row .label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:#8A8878;
+  }
+  .breakdown-row .value{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px;
+    color:var(--ink);
+    font-weight:500;
+  }
+  .warning{
+    margin-top:16px;
+    padding:12px 14px;
+    background:#FBEEE9;
+    border:1px solid #E3B6A6;
+    border-radius:8px;
+    font-size:12.5px;
+    color:#8C4430;
+    display:none;
+  }
+  .warning.show{display:block;}
+  .note{
+    margin-top:20px;
+    font-size:12px;
+    color:#9B9885;
+    line-height:1.5;
+  }
+  footer{
+    margin-top:22px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:#B0AD9A;
+    text-align:center;
+  }
+
+  .topconnect{display:flex; justify-content:space-between; align-items:center; margin-bottom:26px;}
+  .tc-back{font-family:'IBM Plex Sans', sans-serif; font-weight:600; font-size:13.5px; color:var(--teal); text-decoration:none;}
+  .tc-back:hover{color:var(--coral, var(--teal));}
+  .tc-all{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#8A8878; text-decoration:none;}
+  .tc-all:hover{color:var(--ink);}
+  .cta-strip{background:#EFF5F1; border:1px solid var(--teal-soft, var(--teal)); border-radius:10px; padding:18px 20px; margin-top:26px; display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;}
+  .cta-strip p{margin:0; font-size:13.5px; color:var(--ink); max-width:32ch;}
+  .cta-strip a.cta-btn{background:var(--teal); color:#fff; font-family:'IBM Plex Sans', sans-serif; font-weight:600; font-size:13px; padding:10px 18px; border-radius:100px; text-decoration:none; white-space:nowrap;}
+  .cta-strip a.cta-btn:hover{opacity:0.9;}
+  .other-tools{margin-top:22px;}
+  .other-tools .ot-label{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:#8A8878; margin-bottom:10px;}
+  .other-tools .ot-links{display:flex; flex-wrap:wrap; gap:8px;}
+  .other-tools .ot-links a{font-family:'IBM Plex Sans', sans-serif; font-size:12px; color:#5B5A50; text-decoration:none; border:1px solid var(--line); border-radius:100px; padding:6px 12px;}
+  .other-tools .ot-links a:hover{border-color:var(--teal); color:var(--teal);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topconnect">
+    <a href="../index.html" class="tc-back">&larr; ShapeWithSarita</a>
+    <a href="index.html" class="tc-all">All Free Tools</a>
+  </div>
+
+  <div class="eyebrow">04 / Energy balance</div>
+  <h1>Calorie Calculator<br>for Weight Loss</h1>
+  <p class="sub">Works out a daily calorie target below your maintenance level, sized to a pace you can actually stick to.</p>
+
+  <div class="card">
+    <div class="toggle-row">
+      <button id="sex-female" class="active" onclick="setSex('female')">Female</button>
+      <button id="sex-male" onclick="setSex('male')">Male</button>
+    </div>
+
+    <div class="toggle-row">
+      <button id="unit-metric" class="active" onclick="setUnit('metric')">CM / KG</button>
+      <button id="unit-imperial" onclick="setUnit('imperial')">FT-IN / LB</button>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Age</label>
+        <div class="inputbox">
+          <input type="number" id="age" placeholder="28" inputmode="numeric">
+          <span class="unit">yrs</span>
+        </div>
+      </div>
+      <div class="field" id="height-metric-field">
+        <label>Height</label>
+        <div class="inputbox">
+          <input type="number" id="height-cm" placeholder="165" inputmode="decimal">
+          <span class="unit">cm</span>
+        </div>
+      </div>
+      <div class="field" id="height-imperial-field" style="display:none;">
+        <label>Height</label>
+        <div class="inputbox">
+          <input type="number" id="height-ft" placeholder="5" inputmode="decimal" style="max-width:44px;">
+          <span class="unit">ft</span>
+          <input type="number" id="height-in" placeholder="5" inputmode="decimal" style="max-width:44px; margin-left:6px;">
+          <span class="unit">in</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="grid-template-columns:1fr; margin-bottom:22px;">
+      <div class="field">
+        <label>Weight</label>
+        <div class="inputbox">
+          <input type="number" id="weight" placeholder="70" inputmode="decimal">
+          <span class="unit" id="weight-unit">kg</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="activity-select">
+      <label>Activity Level</label>
+      <div class="activity-option selected" data-mult="1.2" onclick="selectActivity(this)">
+        <div><div class="a-title">Sedentary</div><div class="a-desc">Desk job, little to no exercise</div></div>
+        <div class="a-mult">×1.2</div>
+      </div>
+      <div class="activity-option" data-mult="1.375" onclick="selectActivity(this)">
+        <div><div class="a-title">Lightly active</div><div class="a-desc">Light exercise 1–3 days/week</div></div>
+        <div class="a-mult">×1.375</div>
+      </div>
+      <div class="activity-option" data-mult="1.55" onclick="selectActivity(this)">
+        <div><div class="a-title">Moderately active</div><div class="a-desc">Moderate exercise 3–5 days/week</div></div>
+        <div class="a-mult">×1.55</div>
+      </div>
+      <div class="activity-option" data-mult="1.725" onclick="selectActivity(this)">
+        <div><div class="a-title">Very active</div><div class="a-desc">Hard exercise 6–7 days/week</div></div>
+        <div class="a-mult">×1.725</div>
+      </div>
+    </div>
+
+    <div class="pace-select" style="margin-top:18px;">
+      <label>Weight Loss Pace</label>
+      <div class="pace-option" data-deficit="250" onclick="selectPace(this)">
+        <div><div class="p-title">Gentle</div><div class="p-desc">Easier to sustain, slower results</div></div>
+        <div class="p-rate">~0.25 kg/wk</div>
+      </div>
+      <div class="pace-option selected" data-deficit="500" onclick="selectPace(this)">
+        <div><div class="p-title">Moderate</div><div class="p-desc">The commonly recommended pace</div></div>
+        <div class="p-rate">~0.5 kg/wk</div>
+      </div>
+      <div class="pace-option" data-deficit="750" onclick="selectPace(this)">
+        <div><div class="p-title">Aggressive</div><div class="p-desc">Faster loss, harder to hold long-term</div></div>
+        <div class="p-rate">~0.75 kg/wk</div>
+      </div>
+    </div>
+
+    <button class="calc-btn" onclick="calculate()">Calculate My Target</button>
+
+    <div class="result" id="result">
+      <div>
+        <span class="cal-number" id="cal-value">—</span>
+        <span class="cal-unit">kcal / day</span>
+      </div>
+      <p class="cal-desc" id="cal-desc">Your daily target to lose weight at the pace you picked, without dropping so low that it becomes hard to sustain or gets nutrition-poor.</p>
+
+      <div class="breakdown">
+        <div class="breakdown-row">
+          <span class="label">Maintenance (TDEE)</span>
+          <span class="value" id="row-tdee">—</span>
+        </div>
+        <div class="breakdown-row">
+          <span class="label">Daily deficit</span>
+          <span class="value" id="row-deficit">—</span>
+        </div>
+        <div class="breakdown-row">
+          <span class="label">Estimated pace</span>
+          <span class="value" id="row-pace">—</span>
+        </div>
+      </div>
+
+      <div class="warning" id="warning">
+        This target has been raised to a safer floor, since going much lower can leave you short on nutrients and hard to sustain. Consider a gentler pace, or check in with a doctor or dietitian if you want to go lower than this.
+      </div>
+
+      <p class="note">
+        Based on Mifflin–St Jeor TDEE minus your chosen deficit. Weight loss isn't perfectly linear — expect week-to-week variation from water retention, hormones, and how much you moved. Re-check this number every few kilos, since your maintenance calories drop as you lose weight.
+      </p>
+    </div>
+  </div>
+
+  <div class="cta-strip">
+    <p>Want a full plan built around this number — not just a calculator?</p>
+    <a class="cta-btn" href="../onboarding.html">Take the Free Assessment</a>
+  </div>
+
+  <div class="other-tools">
+    <div class="ot-label">More free tools</div>
+    <div class="ot-links">
+      <a href="bmi-calculator.html">BMI Calculator</a>
+<a href="bmr-calculator.html">BMR Calculator</a>
+<a href="tdee-calculator.html">TDEE Calculator</a>
+<a href="calorie-deficit-calculator.html">Calorie Deficit Calculator</a>
+<a href="protein-calculator.html">Protein Calculator</a>
+<a href="water-intake-calculator.html">Water Intake Calculator</a>
+<a href="ideal-weight-calculator.html">Ideal Weight Calculator</a>
+<a href="waist-to-height-ratio-calculator.html">Waist-to-Height Ratio</a>
+<a href="body-fat-calculator.html">Body Fat Calculator</a>
+    </div>
+  </div>
+
+  <footer>MIFFLIN–ST JEOR TDEE &nbsp;−&nbsp; CHOSEN DEFICIT</footer>
+</div>
+
+<script>
+let sex = 'female';
+let unit = 'metric';
+let activityMult = 1.2;
+let deficit = 500;
+
+function setSex(s){
+  sex = s;
+  document.getElementById('sex-female').classList.toggle('active', s==='female');
+  document.getElementById('sex-male').classList.toggle('active', s==='male');
+}
+
+function setUnit(u){
+  unit = u;
+  document.getElementById('unit-metric').classList.toggle('active', u==='metric');
+  document.getElementById('unit-imperial').classList.toggle('active', u==='imperial');
+  document.getElementById('height-metric-field').style.display = u==='metric' ? 'block' : 'none';
+  document.getElementById('height-imperial-field').style.display = u==='imperial' ? 'block' : 'none';
+  document.getElementById('weight-unit').textContent = u==='metric' ? 'kg' : 'lb';
+  document.getElementById('weight').placeholder = u==='metric' ? '70' : '154';
+}
+
+function selectActivity(el){
+  document.querySelectorAll('.activity-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  activityMult = parseFloat(el.dataset.mult);
+}
+
+function selectPace(el){
+  document.querySelectorAll('.pace-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  deficit = parseFloat(el.dataset.deficit);
+}
+
+function calculate(){
+  const age = parseFloat(document.getElementById('age').value);
+  const weightInput = parseFloat(document.getElementById('weight').value);
+  let heightCm, weightKg;
+
+  if(unit === 'metric'){
+    heightCm = parseFloat(document.getElementById('height-cm').value);
+    weightKg = weightInput;
+  } else {
+    const ft = parseFloat(document.getElementById('height-ft').value) || 0;
+    const inch = parseFloat(document.getElementById('height-in').value) || 0;
+    heightCm = ((ft*12) + inch) * 2.54;
+    weightKg = weightInput * 0.453592;
+  }
+
+  if(!age || !heightCm || !weightKg){ shake(); return; }
+
+  let bmr;
+  if(sex === 'male'){
+    bmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) + 5;
+  } else {
+    bmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) - 161;
+  }
+  const tdee = bmr * activityMult;
+
+  // safety floor: commonly cited minimums
+  const floor = sex === 'male' ? 1500 : 1200;
+  let target = Math.round(tdee - deficit);
+  const warningEl = document.getElementById('warning');
+
+  if(target < floor){
+    target = floor;
+    warningEl.classList.add('show');
+  } else {
+    warningEl.classList.remove('show');
+  }
+
+  const actualDeficit = Math.round(tdee - target);
+  const weeklyLossKg = (actualDeficit * 7 / 7700).toFixed(2);
+
+  document.getElementById('cal-value').textContent = target.toLocaleString('en-IN');
+  document.getElementById('row-tdee').textContent = Math.round(tdee).toLocaleString('en-IN') + ' kcal';
+  document.getElementById('row-deficit').textContent = '−' + actualDeficit.toLocaleString('en-IN') + ' kcal';
+  document.getElementById('row-pace').textContent = '~' + weeklyLossKg + ' kg/week';
+
+  document.getElementById('result').classList.add('show');
+}
+
+function shake(){
+  const card = document.querySelector('.card');
+  card.style.transition = 'transform .08s';
+  card.style.transform = 'translateX(-4px)';
+  setTimeout(()=>{ card.style.transform='translateX(4px)'; }, 80);
+  setTimeout(()=>{ card.style.transform='translateX(0)'; }, 160);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShapeWithSarita — Fitness & Nutrition for Real Indian Women</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg: #FDF6EE;
+    --surface: #FFFFFF;
+    --ink: #241C15;
+    --ink-soft: #7A6C5C;
+    --coral: #DD5B3E;
+    --coral-soft: #FBE4DC;
+    --coral-dark: #B84226;
+    --teal: #1E7A6C;
+    --teal-soft: #DFF0EC;
+    --teal-dark: #145B50;
+    --gold: #E4A439;
+    --gold-soft: #FBEBD2;
+    --line: #EEE1D0;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --display: 'Poppins', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg); color:var(--ink); font-family:var(--body); line-height:1.6; -webkit-font-smoothing:antialiased;}
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  button{font-family:inherit; cursor:pointer; border:none; background:none;}
+  :focus-visible{outline:2px solid var(--coral); outline-offset:3px;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  h1,h2,h3{font-family:var(--display); font-weight:700; letter-spacing:-0.01em; color:var(--ink);}
+  h2{font-size:clamp(26px,3.2vw,38px); line-height:1.15;}
+  h3{font-size:19px;}
+  p{color:var(--ink-soft);}
+
+  /* ---------- NAV ---------- */
+  header{position:sticky; top:0; z-index:50; background:rgba(253,246,238,0.94); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+  .navbar{display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto;}
+  .brand{font-family:var(--display); font-weight:700; font-size:19px; display:flex; align-items:center; gap:9px; color:var(--ink);}
+  .brand .mark{width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg, var(--coral), var(--gold)); flex-shrink:0;}
+  nav.links{display:flex; align-items:center; gap:2px;}
+  nav.links button{font-family:var(--body); font-size:14.5px; font-weight:600; color:var(--ink-soft); padding:9px 14px; border-radius:999px;}
+  nav.links button:hover{color:var(--ink); background:rgba(0,0,0,0.04);}
+  nav.links button.active{color:var(--coral-dark); background:var(--coral-soft);}
+  .nav-actions{display:flex; align-items:center; gap:10px;}
+  .btn{font-family:var(--body); font-weight:700; font-size:14px; padding:12px 22px; border-radius:999px; display:inline-flex; align-items:center; gap:8px; transition:transform .15s ease, background .15s ease, box-shadow .15s ease;}
+  .btn-primary{background:var(--coral); color:#fff; box-shadow:0 6px 16px rgba(221,91,62,0.28);}
+  .btn-primary:hover{background:var(--coral-dark);}
+  .btn-whatsapp{background:var(--teal); color:#fff;}
+  .btn-whatsapp:hover{background:var(--teal-dark);}
+  .btn-ghost{color:var(--ink); border:1.5px solid var(--line); background:var(--surface);}
+  .btn-ghost:hover{border-color:var(--ink);}
+  .btn-text{color:var(--ink-soft); font-weight:600; padding:12px 6px;}
+  .btn-text:hover{color:var(--ink);}
+  .btn:active{transform:translateY(1px);}
+  .burger{display:none; flex-direction:column; gap:4px; padding:8px;}
+  .burger span{width:20px; height:2px; background:var(--ink); border-radius:2px;}
+  .mobile-panel{display:none; flex-direction:column; gap:2px; padding:10px 20px 20px; border-top:1px solid var(--line);}
+  .mobile-panel.open{display:flex;}
+  .mobile-panel button{text-align:left; padding:13px 6px; font-size:15px; font-weight:600; color:var(--ink-soft); border-bottom:1px solid var(--line);}
+  .mobile-panel button.active{color:var(--coral-dark);}
+
+  main{display:block;}
+  .view{display:none;}
+  .view.active{display:block;}
+  section{padding:84px 0;}
+  .eyebrow{font-family:var(--body); font-size:12.5px; letter-spacing:0.08em; color:var(--coral-dark); font-weight:700; text-transform:uppercase; margin-bottom:16px; display:flex; align-items:center; gap:8px;}
+  .eyebrow::before{content:'🌿';}
+  .lede{font-size:17.5px; max-width:560px; line-height:1.65;}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:56px 0 90px;}
+  .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:center;}
+  .hero h1{font-size:clamp(34px,4.6vw,52px); line-height:1.12; margin-bottom:20px;}
+  .hero h1 .hl{color:var(--coral);}
+  .hero .lede{margin-bottom:30px;}
+  .hero-ctas{display:flex; align-items:center; gap:14px; flex-wrap:wrap;}
+
+  /* chat mock — signature visual */
+  .chat-card{background:var(--surface); border-radius:22px; box-shadow:0 20px 50px rgba(36,28,21,0.10); overflow:hidden; border:1px solid var(--line);}
+  .chat-head{background:var(--teal); color:#fff; padding:16px 20px; display:flex; align-items:center; gap:10px;}
+  .chat-head .dot{width:9px; height:9px; border-radius:50%; background:#8FE3C8;}
+  .chat-head .cname{font-family:var(--display); font-weight:600; font-size:15px;}
+  .chat-head .cstatus{font-size:11.5px; opacity:0.85;}
+  .chat-body{padding:22px 18px; display:flex; flex-direction:column; gap:12px; background:#F3EFE6;}
+  .bubble{max-width:82%; padding:11px 15px; border-radius:16px; font-size:13.5px; line-height:1.5;}
+  .bubble.in{background:#fff; align-self:flex-start; border-bottom-left-radius:4px; color:var(--ink);}
+  .bubble.out{background:var(--teal); color:#fff; align-self:flex-end; border-bottom-right-radius:4px;}
+  .chat-caption{text-align:center; font-size:12.5px; color:var(--ink-soft); padding:14px; background:var(--surface);}
+
+  /* ---------- CHIP CALLOUTS ---------- */
+  .chip-row{display:flex; flex-wrap:wrap; gap:12px; margin-top:26px;}
+  .chip{font-size:14px; font-weight:600; padding:11px 18px; border-radius:999px; background:var(--surface); border:1.5px solid var(--line); color:var(--ink);}
+  .chip .x{color:var(--ink-soft); font-weight:400; margin-right:6px;}
+
+  .two-col{display:grid; grid-template-columns:0.85fr 1.15fr; gap:60px; align-items:start;}
+
+  /* ---------- FREE TOOLS ---------- */
+  .bmi-card{background:var(--surface); border-radius:var(--radius); border:1px solid var(--line); padding:34px; box-shadow:0 8px 30px rgba(36,28,21,0.06); margin-top:40px;}
+  .bmi-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:22px;}
+  .bmi-grid label{display:block; font-size:13px; font-weight:600; margin-bottom:8px;}
+  .bmi-grid input{width:100%; padding:13px 14px; border:1.5px solid var(--line); border-radius:var(--radius-sm); font-size:15px; background:var(--bg);}
+  .bmi-grid input:focus{border-color:var(--coral);}
+  .bmi-result{display:flex; align-items:center; justify-content:space-between; background:var(--coral-soft); border-radius:var(--radius-sm); padding:20px 24px; margin-top:10px; flex-wrap:wrap; gap:12px;}
+  .bmi-result .num{font-family:var(--display); font-size:34px; font-weight:800; color:var(--coral-dark);}
+  .bmi-result .cat{font-size:14px; font-weight:600; color:var(--ink);}
+  .bmi-note{font-size:12px; color:var(--ink-soft); margin-top:10px;}
+
+  .tool-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:44px;}
+  .tool-card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-sm); padding:20px; display:flex; justify-content:space-between; align-items:center;}
+  .tool-card .tname{font-weight:700; font-size:14.5px;}
+  .tool-card .tsoon{font-size:11px; color:var(--ink-soft); margin-top:3px;}
+  .tool-card button{font-size:12.5px; font-weight:700; color:var(--coral-dark);}
+
+  /* ---------- PROGRAM CARDS ---------- */
+  .card-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:44px;}
+  .dur-select{font-size:12.5px; font-weight:700; color:var(--ink); border:1.5px solid var(--line); border-radius:7px; padding:5px 8px; background:var(--surface); font-family:var(--body); cursor:pointer;}
+  .dur-select:focus{border-color:var(--coral); outline:none;}
+  .prog-card{background:var(--surface); border-radius:var(--radius); border:1px solid var(--line); padding:28px 24px; display:flex; flex-direction:column; gap:14px; box-shadow:0 6px 20px rgba(36,28,21,0.05); border-top:4px solid var(--coral);}
+  .prog-card.c-teal{border-top-color:var(--teal);}
+  .prog-card.c-gold{border-top-color:var(--gold);}
+  .prog-card.c-ink{border-top-color:var(--ink);}
+  .prog-tag{font-size:11.5px; font-weight:700; letter-spacing:0.05em; color:var(--coral-dark); text-transform:uppercase;}
+  .prog-card.c-teal .prog-tag{color:var(--teal-dark);}
+  .prog-card.c-gold .prog-tag{color:#9A6B1F;}
+  .prog-card.c-ink .prog-tag{color:var(--ink);}
+  .prog-card p{font-size:14px;}
+  .prog-list{margin-top:4px; display:flex; flex-direction:column; gap:6px;}
+  .prog-list li{font-size:13px; color:var(--ink-soft); padding-left:16px; position:relative;}
+  .prog-list li::before{content:'✓'; position:absolute; left:0; color:var(--teal); font-weight:700;}
+  .prog-meta{margin-top:auto; display:flex; flex-direction:column; gap:5px; padding-top:14px; border-top:1px solid var(--line);}
+  .prog-meta-row{display:flex; justify-content:space-between; font-size:12.5px; color:var(--ink-soft); font-weight:600;}
+  .prog-card .btn{margin-top:14px; width:fit-content; padding:11px 18px; font-size:13px;}
+  .prog-card.c-teal .btn-primary{background:var(--teal);}
+  .prog-card.c-teal .btn-primary:hover{background:var(--teal-dark);}
+  .prog-card.c-gold .btn-primary{background:var(--gold);}
+  .prog-card.c-gold .btn-primary:hover{background:#B87F1F;}
+  .prog-card.c-ink .btn-primary{background:var(--ink);}
+  .prog-card.c-ink .btn-primary:hover{background:#000;}
+
+  /* ---------- STEPS ---------- */
+  .steps{margin-top:48px; display:flex; flex-direction:column; gap:16px;}
+  .step{display:grid; grid-template-columns:56px 1fr; gap:22px; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:26px;}
+  .step-num{width:44px; height:44px; border-radius:50%; background:var(--coral-soft); color:var(--coral-dark); font-family:var(--display); font-weight:800; font-size:16px; display:flex; align-items:center; justify-content:center;}
+  .step h3{margin-bottom:6px;}
+  .step p{max-width:560px; font-size:14px;}
+
+  /* ---------- RESULTS ---------- */
+  .result-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:44px;}
+  .result-card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:28px; box-shadow:0 6px 20px rgba(36,28,21,0.05);}
+  .result-num{font-family:var(--display); font-size:38px; font-weight:800; color:var(--coral-dark);}
+  .result-card.c-teal .result-num{color:var(--teal-dark);}
+  .result-card.c-gold .result-num{color:#9A6B1F;}
+  .result-sub{font-size:13px; color:var(--ink-soft); margin-bottom:16px;}
+  .result-quote{font-size:14px; color:var(--ink); margin-bottom:14px; line-height:1.6;}
+  .result-name{font-size:13px; font-weight:700;}
+  .result-tag{font-size:12px; color:var(--ink-soft);}
+  .disclaimer{margin-top:32px; font-size:13px; color:var(--ink-soft); border-left:3px solid var(--line); padding-left:16px;}
+
+  /* ---------- ABOUT ---------- */
+  .about-hero{display:grid; grid-template-columns:0.85fr 1.15fr; gap:56px; align-items:center;}
+  .coach-photo{aspect-ratio:4/5; border-radius:24px; overflow:hidden; box-shadow:0 10px 30px rgba(221,91,62,0.25);}
+  .coach-photo img{width:100%; height:100%; object-fit:cover;}
+  .cred-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:36px;}
+  .cred-item{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-sm); padding:20px 22px;}
+  .cred-item .clabel{font-size:11.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--coral-dark); display:block; margin-bottom:8px;}
+  .cred-item p{font-size:13.5px;}
+
+  /* ---------- FAQ ---------- */
+  .faq-list{margin-top:40px; max-width:760px;}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{width:100%; display:flex; justify-content:space-between; align-items:center; padding:22px 4px; text-align:left; font-family:var(--display); font-size:16px; font-weight:600;}
+  .faq-icon{font-size:20px; color:var(--coral); transition:transform .2s ease; flex-shrink:0;}
+  .faq-item.open .faq-icon{transform:rotate(45deg);}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .25s ease;}
+  .faq-item.open .faq-a{max-height:220px;}
+  .faq-a p{padding:0 4px 22px; font-size:14px; max-width:640px;}
+
+  /* ---------- CTA BAND ---------- */
+  .cta-band{background:linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%); color:#fff; padding:70px 0; text-align:center; border-radius:28px; margin:0 28px;}
+  .cta-band h2{color:#fff;}
+  .cta-band p{color:#CFEAE3; max-width:480px; margin:14px auto 32px;}
+  .cta-band .btn-primary{background:#fff; color:var(--teal-dark); box-shadow:none;}
+  .cta-band .btn-primary:hover{background:#F3EFE6;}
+  .cta-band .btn-whatsapp{background:#25D366; color:#fff;}
+  .cta-band .btns{display:flex; justify-content:center; gap:16px; flex-wrap:wrap;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:56px 0 32px;}
+  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px;}
+  footer h4{font-size:12.5px; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink-soft); font-weight:700; margin-bottom:14px;}
+  footer ul li{margin-bottom:10px;}
+  footer ul li a{font-size:14px; color:var(--ink-soft); font-weight:500;}
+  footer ul li a:hover{color:var(--ink);}
+  .footer-note{font-size:13px; color:var(--ink-soft); max-width:280px; line-height:1.6;}
+  .footer-bottom{display:flex; justify-content:space-between; margin-top:44px; padding-top:22px; border-top:1px solid var(--line); font-size:12.5px; color:var(--ink-soft); flex-wrap:wrap; gap:10px;}
+
+  /* ---------- TOAST ---------- */
+  .toast{position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(12px); background:var(--ink); color:#fff; padding:14px 22px; border-radius:999px; font-size:14px; display:flex; align-items:center; gap:10px; opacity:0; pointer-events:none; transition:opacity .2s ease, transform .2s ease; z-index:100;}
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0); pointer-events:auto;}
+  .toast .dot{width:6px; height:6px; background:var(--coral); border-radius:50%;}
+
+  /* ---------- floating whatsapp ---------- */
+  .float-wa{position:fixed; bottom:26px; right:26px; width:56px; height:56px; border-radius:50%; background:#25D366; color:#fff; display:flex; align-items:center; justify-content:center; font-size:26px; box-shadow:0 10px 26px rgba(37,211,102,0.4); z-index:60;}
+
+  @media(max-width:900px){
+    nav.links{display:none;} .burger{display:flex;}
+    .hero-grid, .about-hero, .two-col{grid-template-columns:1fr; gap:38px;}
+    .card-grid{grid-template-columns:repeat(2,1fr);}
+    .result-grid, .tool-grid{grid-template-columns:1fr 1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr; gap:28px;}
+    .cta-band{margin:0 16px;}
+  }
+  @media(max-width:560px){
+    .wrap{padding:0 20px;}
+    section{padding:56px 0;}
+    .card-grid, .result-grid, .tool-grid, .bmi-grid{grid-template-columns:1fr;}
+    .cred-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .nav-actions .btn-text{display:none;}
+    .float-wa{width:50px; height:50px; font-size:22px; bottom:18px; right:18px;}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none !important; scroll-behavior:auto !important;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="navbar">
+    <a class="brand" href="#" onclick="showView('home');return false;"><span class="mark"></span>ShapeWithSarita</a>
+    <nav class="links">
+      <button data-view="home">Home</button>
+      <button data-view="tools">Free Tools</button>
+      <button data-view="programs">Programs</button>
+      <button data-view="how-it-works">How It Works</button>
+      <button data-view="results">Results</button>
+      <button data-view="about">About</button>
+      <button data-view="faq">FAQ</button>
+    </nav>
+    <div class="nav-actions">
+      <!-- <button class="btn btn-text" onclick="location.href='signin.html'">Login</button> -->
+      <button class="btn btn-primary" onclick="location.href='onboarding.html'">Book Free Call Consultation</button>
+      <button class="burger" aria-label="Menu" onclick="document.getElementById('mobilePanel').classList.toggle('open')"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-panel" id="mobilePanel">
+    <button data-view="home">Home</button>
+    <button data-view="tools">Free Tools</button>
+    <button data-view="programs">Programs</button>
+    <button data-view="how-it-works">How It Works</button>
+    <button data-view="results">Results</button>
+    <button data-view="about">About</button>
+    <button data-view="faq">FAQ</button>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HOME ============ -->
+<section class="view active" id="home">
+  <div class="wrap hero">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Coaching built for real Indian women's lives</div>
+        <h1>Get Fit Without Giving Up <span class="hl">Your Family Life.</span></h1>
+        <p class="lede">Simple home workouts, Indian food you already eat, and daily WhatsApp accountability a coach who fits into your life instead of asking you to rebuild it.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-primary" onclick="location.href='onboarding.html'">Start Your 7-Day Free Plan</button>
+          <button class="btn btn-ghost" onclick="showView('tools')">Take the Free Assessment →</button>
+        </div>
+      </div>
+      <div>
+        <div class="chat-card">
+          <div class="chat-head"><span class="dot"></span><div><div class="cname">Sarita 🌿</div><div class="cstatus">online now</div></div></div>
+          <div class="chat-body">
+            <div class="bubble in">Good morning Priya ❤️ Today: 20-min lower body + 7 glasses water.</div>
+            <div class="bubble out">Done! Felt strong today 💪</div>
+            <div class="bubble in">That's the spirit! See you tomorrow 🌸</div>
+          </div>
+          <div class="chat-caption">This is what accountability actually looks like.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="two-col">
+      <div>
+        <div class="eyebrow">Why ShapeWithSarita is different</div>
+        <h2>You don't need another PDF. You need someone in your corner.</h2>
+      </div>
+      <div>
+        <p class="lede">Most fitness advice assumes you have a spare hour, a separate kitchen, and a gym membership. Real life doesn't work that way, so your plan shouldn't either. This is fitness and nutrition designed around cooking for the family, tight schedules, and starting over without shame.</p>
+        <div class="chip-row">
+          <span class="chip"><span class="x">✕</span>Crash diets</span>
+          <span class="chip"><span class="x">✕</span>Separate family meals</span>
+          <span class="chip"><span class="x">✕</span>Gym dependency</span>
+          <span class="chip"><span class="x">✕</span>Extreme workouts</span>
+        </div>
+        <button class="btn btn-primary" style="margin-top:28px;" onclick="showView('how-it-works')">See How It Works</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" style="padding-top:88px;">
+    <div class="eyebrow">Programs</div>
+    <h2>Pick the program that matches your life right now.</h2>
+    <div class="card-grid" id="homeProgramCards"></div>
+  </div>
+
+  <div class="wrap" style="padding-top:6px;">
+    <div class="cta-band">
+      <div class="wrap">
+        <h2>Ready to stop starting over every Monday?</h2>
+        <p>Message Sarita directly on WhatsApp, or take the free 2-minute assessment first.</p>
+        <div class="btns">
+          <button class="btn btn-whatsapp" onclick="window.open('https://wa.me/917903805368?text=Hi%20Sarita,%20I%20want%20to%20know%20more%20about%20your%20coaching%20programs.', '_blank')">💬 Chat on WhatsApp</button>
+          <button class="btn btn-primary" onclick="showView('tools')">Take Free Assessment</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FREE TOOLS ============ -->
+<section class="view" id="tools">
+  <div class="wrap" style="padding-top:64px;">
+    <div class="eyebrow">Free tools</div>
+    <h2>Start with a number, not a guess.</h2>
+    <p class="lede" style="margin-top:16px;">Free calculators to understand where you're starting from no signup needed.</p>
+
+    <div class="bmi-card">
+      <h3 style="margin-bottom:18px;">BMI Calculator <span style="font-weight:400; color:var(--ink-soft); font-size:13px;">(Asian BMI guidelines)</span></h3>
+      <div class="bmi-grid">
+        <div><label for="bmiHeight">Height (cm)</label><input type="number" id="bmiHeight" placeholder="160" oninput="calcBMI()"></div>
+        <div><label for="bmiWeight">Weight (kg)</label><input type="number" id="bmiWeight" placeholder="68" oninput="calcBMI()"></div>
+      </div>
+      <div class="bmi-result">
+        <div><span class="num" id="bmiNum">—</span></div>
+        <div class="cat" id="bmiCat">Enter your height and weight above</div>
+      </div>
+      <p class="bmi-note">BMI is a starting point, not the full picture it doesn't account for muscle, frame or fat distribution. <a href="tools/bmi-calculator.html" style="color:var(--coral-dark); font-weight:600;">Open the full BMI calculator →</a></p>
+    </div>
+
+    <h3 style="margin-top:48px; margin-bottom:6px; font-size:20px;">The full ShapeWithSarita Toolkit</h3>
+    <p class="lede" style="margin-bottom:0; font-size:14.5px;">Nine more free calculators — built for Indian bodies and Indian food.</p>
+    <div class="tool-grid" id="toolGrid"></div>
+  </div>
+</section>
+
+<!-- ============ PROGRAMS ============ -->
+<section class="view" id="programs">
+  <div class="wrap" style="padding-top:64px;">
+    <div class="eyebrow">Programs</div>
+    <h2>Built around your life stage, not a generic category.</h2>
+    <p class="lede" style="margin-top:16px;">Every program includes an Indian-food-friendly nutrition plan, home-friendly workouts, and real accountability over WhatsApp, weekly reviews, or both.</p>
+    <div class="card-grid" id="fullProgramCards"></div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="view" id="how-it-works">
+  <div class="wrap" style="padding-top:64px;">
+    <div class="eyebrow">The process</div>
+    <h2>From assessment to daily accountability.</h2>
+    <p class="lede" style="margin-top:16px;">No app to download on day one just a simple system that keeps you consistent.</p>
+    <div class="steps" id="fullSteps"></div>
+  </div>
+</section>
+
+<!-- ============ RESULTS ============ -->
+<section class="view" id="results">
+  <div class="wrap" style="padding-top:64px;">
+    <div class="eyebrow">Results</div>
+    <h2>What consistency looks like.</h2>
+    <div class="result-grid" id="resultCards"></div>
+    <p class="disclaimer">Results vary based on individual consistency, lifestyle and starting point. These are illustrative example outcomes; no specific result is guaranteed.</p>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="view" id="about">
+  <div class="wrap" style="padding-top:64px;">
+    <div class="about-hero">
+      <div class="coach-photo">
+        <img src="cochsarita.jpeg" alt="Coach Sarita">
+      </div>
+      <div>
+        <div class="eyebrow">About Sarita</div>
+        <h2>A practical coach, not another fitness influencer.</h2>
+        <p class="lede" style="margin-top:18px;">I got into coaching because I kept meeting women who'd tried every diet plan on the internet and still felt stuck not because they lacked willpower, but because the plans assumed a life they didn't have. No separate meals. No spare hour every morning. No guilt when the week goes sideways.</p>
+        <p style="margin-top:16px; font-size:18px; max-width:520px;">Every client I work with gets a plan built around her actual routine homemaker, working professional, or new mother and daily accountability so she isn't figuring it out alone.</p>
+        <button class="btn btn-primary" style="margin-top:28px;" onclick="location.href='onboarding.html'">Start With Sarita</button>
+      </div>
+    </div>
+    <div class="cred-grid">
+      <div class="cred-item"><span class="clabel">Experience</span><p> years coaching Indian women through fat loss, postpartum recovery and sustainable habit change.</p></div>
+      <div class="cred-item"><span class="clabel">Certifications</span><p>Certified nutrition coach; certified strength & conditioning coach.</p></div>
+      <div class="cred-item"><span class="clabel">Coaching philosophy</span><p>Your plan should fit your life not the other way around.</p></div>
+      <div class="cred-item"><span class="clabel">Why clients stay</span><p>Daily WhatsApp check-ins and a weekly review that actually adjusts your plan.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="view" id="faq">
+  <div class="wrap" style="padding-top:64px; padding-bottom:96px;">
+    <div class="eyebrow">Frequently asked</div>
+    <h2>Questions before you start.</h2>
+    <div class="faq-list" id="faqList"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:14px;"><span class="mark"></span>ShapeWithSarita</div>
+        <p class="footer-note">Fitness & nutrition coaching for real Indian women built around your family, your food, and your schedule.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#" onclick="showView('tools');return false;">Free Tools</a></li>
+          <li><a href="#" onclick="showView('programs');return false;">Programs</a></li>
+          <li><a href="#" onclick="showView('how-it-works');return false;">How It Works</a></li>
+          <li><a href="#" onclick="showView('results');return false;">Results</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="#" onclick="showView('about');return false;">About Sarita</a></li>
+          <li><a href="#" onclick="showView('faq');return false;">FAQ</a></li>
+          <li><a href="#" onclick="notReady();return false;">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://wa.me/917903805368?text=Hi%20Sarita,%20I%20want%20to%20know%20more%20about%20your%20coaching%20programs." target="_blank">WhatsApp</a></li>
+          <li><a href="https://www.instagram.com/shapewithsarita?igsi=YzB4MTdpNjRpNm1z" target="_blank">Instagram</a></li>
+          <li><a href="https://youtube.com/@shapewithsarita?si=daRN3a6kWRs8nVqE" target="_blank">YouTube</a></li>
+          <li><a href="mailto:diet@shapewithsarita.in">diet@shapewithsarita.in</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ShapeWithSarita. All rights reserved.</span>
+      <span>Results vary by individual</span>
+    </div>
+  </div>
+</footer>
+
+<a class="float-wa" href="https://wa.me/917903805368?text=Hi%20Sarita,%20I%20want%20to%20know%20more%20about%20your%20coaching%20programs." target="_blank" aria-label="Chat on WhatsApp">💬</a>
+<div class="toast" id="toast"><span class="dot"></span><span id="toastText"></span></div>
+
+<script>
+  const programs = [
+    {tag:'Homemakers', color:'', name:'Homemaker Elite', desc:"Specifically designed for homemakers and women managing full-time household responsibilities who prepare meals for their families and need a sustainable fitness routine without cooking separate food or joining a gym.", includes:['20-minute home workouts','Family-friendly Indian meals','Daily WhatsApp accountability','Weekly progress review'], durations:[{label:'1 Month', price:'₹1,999'},{label:'12 Weeks', price:'₹4,999'},{label:'24 Weeks', price:'₹9,999'}]},
+    {tag:'Working Women', color:'c-teal', name:'Fit Professional', desc:'Specifically designed for working women and career professionals juggling demanding 9-to-6 schedules, back-to-back meetings, daily commutes, irregular eating windows, and high-stress office environments.', includes:['20–30 minute workouts','Office & Swiggy/Zomato-friendly meals','Step & sleep targets','Weekly accountability'], durations:[{label:'1 Month', price:'₹1,999'},{label:'12 Weeks', price:'₹4,999'},{label:'24 Weeks', price:'₹9,999'}]},
+    {tag:'Senior Women', color:'c-teal', name:'Ageless Grace', desc:'Specifically designed for senior women and mature adults seeking dedicated long-term care focused on gentle, low-impact movement to enhance joint health, improve bone density, and maintain complete functional independence.', includes:['20–30 minute workouts','Office & Swiggy/Zomato-friendly meals','Step & sleep targets','Weekly accountability'], duration:'8-24 weeks', price:'On request'},
+    {tag:'New Mothers', color:'c-gold', name:'New Mom Reset', desc:"A gentle, postpartum-friendly path back to strength and energy on your baby's schedule, not a fixed one.", includes:['Postpartum-safe movement','Energy-focused nutrition','Flexible daily check-ins','Monthly consultation'], duration:'8–24 weeks', price:'On request'},
+  ];
+
+  const durationMap = {};
+  function updateProgramPrice(selId){
+    const entry = durationMap[selId];
+    if(!entry) return;
+    const idx = parseInt(document.getElementById(selId).value, 10);
+    document.getElementById(entry.priceId).textContent = entry.durations[idx].price;
+  }
+
+  function programCard(p, full, prefix){
+    const list = full ? `<ul class="prog-list">${p.includes.map(i=>`<li>${i}</li>`).join('')}</ul>` : '';
+
+    let metaBlock;
+    if(p.durations){
+      const selId = `dur-${prefix}`;
+      const priceId = `price-${prefix}`;
+      durationMap[selId] = { durations: p.durations, priceId };
+      metaBlock = `
+        <div class="prog-meta">
+          <div class="prog-meta-row"><span>Duration</span>
+            <select id="${selId}" class="dur-select" onchange="updateProgramPrice('${selId}')">
+              ${p.durations.map((d,i)=>`<option value="${i}">${d.label}</option>`).join('')}
+            </select>
+          </div>
+          <div class="prog-meta-row"><span>Price</span><span id="${priceId}">${p.durations[0].price}</span></div>
+        </div>`;
+    } else {
+      metaBlock = `
+        <div class="prog-meta">
+          <div class="prog-meta-row"><span>Duration</span><span>${p.duration}</span></div>
+          <div class="prog-meta-row"><span>Price</span><span>${p.price}</span></div>
+        </div>`;
+    }
+
+    return `<div class="prog-card ${p.color}">
+      <span class="prog-tag">${p.tag}</span>
+      <h3>${p.name}</h3>
+      <p>${p.desc}</p>
+      ${list}
+      ${metaBlock}
+      <button class="btn btn-primary" onclick="location.href='onboarding.html'">Book Free Call Consultation</button>
+    </div>`;
+  }
+  document.getElementById('homeProgramCards').innerHTML = programs.map((p,i)=>programCard(p,false,`home-${i}`)).join('');
+  document.getElementById('fullProgramCards').innerHTML = programs.map((p,i)=>programCard(p,true,`full-${i}`)).join('');
+
+  const steps = [
+    {t:'Take the Free 2-Minute Assessment', d:'A quick set of questions about your goal, schedule, food preferences and biggest obstacle no signup wall.'},
+    {t:'Free Consultation Call with Sarita', d:'A short call where Sarita gets to know your goal, your routine and what you actually need before anything is decided.'},
+    {t:'Get a Payment Link Matched to Your Plan', d:"Once Sarita understands your goal, she sends a payment link for the program and duration that actually fits you not a generic price."},
+    {t:'Get a Plan Built Around Your Real Life', d:'Sarita builds your training and nutrition around your actual routine, not an idealized one.'},
+    {t:'Daily WhatsApp Accountability', d:"A short daily message today's workout, a food swap, a water reminder and a quick check-in so you're never doing this alone."},
+    {t:'Weekly Progress Review & Adjustment', d:'Every week, your plan is reviewed and adjusted based on what actually happened not what was supposed to happen.'},
+  ];
+  function stepRow(s,i){
+    return `<div class="step"><div class="step-num">${i+1}</div><div><h3>${s.t}</h3><p>${s.d}</p></div></div>`;
+  }
+  document.getElementById('fullSteps').innerHTML = steps.map(stepRow).join('');
+
+  const results = [
+    {num:'9 kg', sub:'in 5 months, without giving up rice', quote:'I stopped thinking of it as a "diet" it was just how I started eating. My family barely noticed a difference at dinner.', name:'Priya, 38', tag:'Homemaker', color:''},
+    {num:'+2,900', sub:'average daily steps increase', quote:'The daily WhatsApp nudge was the difference. I never felt like I was doing this alone, even on my busiest weeks.', name:'Neha, 31', tag:'Working Professional', color:'c-teal'},
+    {num:'92%', sub:'check-in consistency across 10 weeks', quote:'Sarita adjusted my plan around my baby\'s sleep schedule, not the other way around. That\'s what made it stick.', name:'Ritu, 29', tag:'New Mother', color:'c-gold'},
+  ];
+  document.getElementById('resultCards').innerHTML = results.map(r=>`
+    <div class="result-card ${r.color}">
+      <div class="result-num">${r.num}</div>
+      <div class="result-sub">${r.sub}</div>
+      <div class="result-quote">"${r.quote}"</div>
+      <div class="result-name">${r.name}</div>
+      <div class="result-tag">${r.tag}</div>
+    </div>`).join('');
+
+  const tools = [
+    ['BMR Calculator','tools/bmr-calculator.html'],
+    ['TDEE Calculator','tools/tdee-calculator.html'],
+    ['Calorie Calculator (Weight Loss)','tools/calorie-calculator-weight-loss.html'],
+    ['Calorie Deficit Calculator','tools/calorie-deficit-calculator.html'],
+    ['Protein Calculator','tools/protein-calculator.html'],
+    ['Water Intake Calculator','tools/water-intake-calculator.html'],
+    ['Ideal Weight Calculator','tools/ideal-weight-calculator.html'],
+    ['Waist-to-Height Ratio','tools/waist-to-height-ratio-calculator.html'],
+    ['Body Fat Calculator','tools/body-fat-calculator.html'],
+  ];
+  document.getElementById('toolGrid').innerHTML = tools.map(([name,href])=>`
+    <div class="tool-card"><div><div class="tname">${name}</div><div class="tsoon">Free · no signup</div></div><button onclick="location.href='${href}'">Open →</button></div>`).join('');
+
+  const faqs = [
+    {q:'I cook for the whole family - how can I eat separately?', a:"You don't have to. Your plan is built around swaps and portions within the same meals you're already cooking, not a second kitchen."},
+    {q:"I don't have an hour to exercise.", a:"Most workouts are 15–20 minutes and designed to fit into whatever window you actually have no gym required."},
+    {q:"I've tried diets before and given up after a few days.", a:"That's exactly the problem ShapeWithSarita is built to solve daily accountability instead of a plan you're left to follow alone."},
+    {q:'Do I need a gym or equipment?', a:'No. Programs are designed to work at home with little to no equipment, though you can add a gym if you have access to one.'},
+    {q:'How do check-ins work?', a:"A short daily WhatsApp message and a slightly longer weekly review Sarita adjusts your plan based on how the week actually went."},
+    {q:'Is this only for weight loss?', a:'No — many clients stay for the energy, strength and consistency, even once the number on the scale matters less to them.'},
+  ];
+  document.getElementById('faqList').innerHTML = faqs.map((f,i)=>`
+    <div class="faq-item" id="faq-${i}">
+      <button class="faq-q" onclick="toggleFaq(${i})">${f.q}<span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>${f.a}</p></div>
+    </div>`).join('');
+  function toggleFaq(i){ document.getElementById('faq-'+i).classList.toggle('open'); }
+
+  function calcBMI(){
+    const h = parseFloat(document.getElementById('bmiHeight').value);
+    const w = parseFloat(document.getElementById('bmiWeight').value);
+    const numEl = document.getElementById('bmiNum');
+    const catEl = document.getElementById('bmiCat');
+    if(!h || !w){ numEl.textContent = '—'; catEl.textContent = 'Enter your height and weight above'; return; }
+    const bmi = w / ((h/100)*(h/100));
+    numEl.textContent = bmi.toFixed(1);
+    let cat, color;
+    if(bmi < 18.5){ cat='Underweight'; color='var(--gold)'; }
+    else if(bmi < 23){ cat='Normal range'; color='var(--teal-dark)'; }
+    else if(bmi < 25){ cat='Overweight'; color='#B87F1F'; }
+    else { cat='Obese range'; color='var(--coral-dark)'; }
+    catEl.textContent = cat;
+    numEl.style.color = color;
+  }
+
+  function showView(id){
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('nav.links button, .mobile-panel button').forEach(b=>{
+      b.classList.toggle('active', b.dataset.view === id);
+    });
+    document.getElementById('mobilePanel').classList.remove('open');
+    window.scrollTo({top:0, behavior:'auto'});
+  }
+  document.querySelectorAll('nav.links button, .mobile-panel button').forEach(b=>{
+    b.addEventListener('click', ()=>showView(b.dataset.view));
+  });
+  document.querySelector('nav.links button[data-view="home"]').classList.add('active');
+</script>
+
+</body>
+</html>

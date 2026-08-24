@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Free Tools — ShapeWithSarita</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --parchment:#FAF6EC; --ink:#20241F; --teal:#1F4B43; --teal-soft:#2E6358;
+    --gold:#C9971F; --coral:#C1573B; --line:#DED4BE; --card:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--parchment); color:var(--ink); font-family:'IBM Plex Sans', sans-serif; display:flex; justify-content:center; padding:48px 20px; min-height:100vh;}
+  .wrap{width:100%; max-width:720px;}
+  .topconnect{display:flex; justify-content:space-between; align-items:center; margin-bottom:26px;}
+  .tc-back{font-family:'IBM Plex Sans', sans-serif; font-weight:600; font-size:13.5px; color:var(--teal); text-decoration:none;}
+  .tc-back:hover{color:var(--coral);}
+  .tc-all{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#8A8878; text-decoration:none;}
+  .eyebrow{font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--teal-soft); margin-bottom:8px;}
+  h1{font-family:'Fraunces', serif; font-weight:700; font-size:40px; line-height:1.05; margin:0 0 6px; color:var(--teal);}
+  .sub{font-size:15px; color:#5B5A50; margin-bottom:36px; max-width:48ch;}
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .tool-card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px 22px; text-decoration:none; display:block; transition:border-color .15s ease, transform .15s ease;}
+  .tool-card:hover{border-color:var(--teal); transform:translateY(-2px);}
+  .tool-card .t-eyebrow{font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--gold); margin-bottom:8px;}
+  .tool-card h3{font-family:'Fraunces', serif; font-size:19px; font-weight:600; color:var(--ink); margin:0 0 6px;}
+  .tool-card p{font-size:12.5px; color:#8A8878; margin:0; line-height:1.5;}
+  .cta-strip{background:#EFF5F1; border:1px solid var(--teal-soft); border-radius:10px; padding:20px 22px; margin-top:32px; display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;}
+  .cta-strip p{margin:0; font-size:14px; color:var(--ink); max-width:34ch;}
+  .cta-strip a.cta-btn{background:var(--teal); color:#fff; font-family:'IBM Plex Sans', sans-serif; font-weight:600; font-size:13.5px; padding:11px 20px; border-radius:100px; text-decoration:none; white-space:nowrap;}
+  footer{margin-top:30px; font-family:'IBM Plex Mono', monospace; font-size:11px; color:#B0AD9A; text-align:center;}
+  @media(max-width:560px){ .grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topconnect">
+    <a href="../index.html" class="tc-back">&larr; ShapeWithSarita</a>
+    <span class="tc-all">10 Free Tools</span>
+  </div>
+
+  <div class="eyebrow">Free tools</div>
+  <h1>The ShapeWithSarita Toolkit</h1>
+  <p class="sub">Ten free calculators — built for Indian bodies and Indian food — to help you understand your starting point before you commit to anything.</p>
+
+  <div class="grid">
+    <a class="tool-card" href="bmi-calculator.html"><div class="t-eyebrow">01 / Body composition</div><h3>BMI Calculator</h3><p>Uses Asian BMI cut-offs, more accurate for Indian adults.</p></a>
+    <a class="tool-card" href="bmr-calculator.html"><div class="t-eyebrow">02 / Body composition</div><h3>BMR Calculator</h3><p>What your body burns at complete rest.</p></a>
+    <a class="tool-card" href="tdee-calculator.html"><div class="t-eyebrow">03 / Energy balance</div><h3>TDEE Calculator</h3><p>Your total daily calorie burn, rest plus movement.</p></a>
+    <a class="tool-card" href="calorie-calculator-weight-loss.html"><div class="t-eyebrow">04 / Energy balance</div><h3>Calorie Calculator<br>for Weight Loss</h3><p>A daily calorie target sized to a pace you can sustain.</p></a>
+    <a class="tool-card" href="protein-calculator.html"><div class="t-eyebrow">05 / Nutrition</div><h3>Protein Calculator</h3><p>Daily protein target with Indian food examples.</p></a>
+    <a class="tool-card" href="ideal-weight-calculator.html"><div class="t-eyebrow">06 / Body composition</div><h3>Ideal Weight Calculator</h3><p>A healthy weight range for your height, not one number.</p></a>
+    <a class="tool-card" href="body-fat-calculator.html"><div class="t-eyebrow">07 / Body composition</div><h3>Body Fat Calculator</h3><p>The U.S. Navy tape-measure method — no scans needed.</p></a>
+    <a class="tool-card" href="waist-to-height-ratio-calculator.html"><div class="t-eyebrow">08 / Body composition</div><h3>Waist-to-Height Ratio</h3><p>A simple, sex-independent health risk screen.</p></a>
+    <a class="tool-card" href="water-intake-calculator.html"><div class="t-eyebrow">09 / Hydration</div><h3>Water Intake Calculator</h3><p>A daily fluid target adjusted for India's climate.</p></a>
+    <a class="tool-card" href="calorie-deficit-calculator.html"><div class="t-eyebrow">12 / Energy balance</div><h3>Calorie Deficit Calculator</h3><p>See exactly how a deficit turns into weekly fat loss.</p></a>
+  </div>
+
+  <div class="cta-strip">
+    <p>Numbers are a starting point — a real plan is built around your whole life.</p>
+    <a class="cta-btn" href="../onboarding.html">Take the Free Assessment</a>
+  </div>
+
+  <footer>SHAPEWITHSARITA · FREE TOOLS</footer>
+</div>
+</body>
+</html>

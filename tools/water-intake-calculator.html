@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Water Intake Calculator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --parchment:#FAF6EC;
+    --ink:#20241F;
+    --teal:#1F4B43;
+    --teal-soft:#2E6358;
+    --gold:#C9971F;
+    --blue:#3E7CA6;
+    --line:#DED4BE;
+    --card:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--parchment);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    display:flex;
+    justify-content:center;
+    padding:48px 20px;
+    min-height:100vh;
+  }
+  .wrap{width:100%;max-width:520px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--teal-soft);
+    margin-bottom:8px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:40px;
+    line-height:1.05;
+    margin:0 0 6px;
+    color:var(--teal);
+  }
+  .sub{
+    font-size:15px;
+    color:#5B5A50;
+    margin-bottom:32px;
+    max-width:42ch;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:28px;
+    box-shadow:0 1px 2px rgba(32,36,31,0.04);
+  }
+  .row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin-bottom:16px;
+  }
+  .field label{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#8A8878;
+    margin-bottom:6px;
+  }
+  .field .inputbox{
+    display:flex;
+    align-items:baseline;
+    border:1.5px solid var(--line);
+    border-radius:8px;
+    padding:10px 12px;
+    transition:border-color .15s ease;
+  }
+  .field .inputbox:focus-within{border-color:var(--teal);}
+  .field input{
+    border:none;
+    outline:none;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:20px;
+    width:100%;
+    background:transparent;
+    color:var(--ink);
+  }
+  .field .unit{
+    font-size:12px;
+    color:#A6A392;
+    font-family:'IBM Plex Mono', monospace;
+    white-space:nowrap;
+    margin-left:6px;
+  }
+  .unit-toggle{
+    display:flex;
+    gap:6px;
+    margin-bottom:16px;
+  }
+  .unit-toggle button{
+    flex:1;
+    padding:8px;
+    border-radius:7px;
+    border:1.5px solid var(--line);
+    background:transparent;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.06em;
+    color:#8A8878;
+    cursor:pointer;
+  }
+  .unit-toggle button.active{
+    background:var(--teal);
+    border-color:var(--teal);
+    color:#fff;
+  }
+
+  .chip-select label{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#8A8878;
+    margin-bottom:8px;
+  }
+  .chip-row{
+    display:flex;
+    gap:6px;
+    margin-bottom:16px;
+    flex-wrap:wrap;
+  }
+  .chip{
+    padding:8px 13px;
+    border-radius:100px;
+    border:1.5px solid var(--line);
+    background:transparent;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:12.5px;
+    color:#5B5A50;
+    cursor:pointer;
+    transition:border-color .12s ease, background .12s ease;
+  }
+  .chip.selected{
+    background:var(--teal);
+    border-color:var(--teal);
+    color:#fff;
+  }
+
+  .calc-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    background:var(--gold);
+    color:#25200A;
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:.02em;
+    cursor:pointer;
+    transition:transform .12s ease, background .15s ease;
+    margin-top:6px;
+  }
+  .calc-btn:hover{background:#B98916;}
+  .calc-btn:active{transform:scale(0.98);}
+
+  .result{
+    margin-top:28px;
+    padding-top:24px;
+    border-top:1px dashed var(--line);
+    display:none;
+  }
+  .result.show{display:block;}
+  .water-number{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:52px;
+    color:var(--blue);
+    line-height:1;
+  }
+  .water-unit{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:#8A8878;
+    margin-left:6px;
+  }
+  .water-desc{
+    font-size:13px;
+    color:#5B5A50;
+    margin-top:10px;
+    max-width:44ch;
+  }
+
+  .glasses{
+    margin-top:22px;
+  }
+  .glasses .label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:#8A8878;
+    margin-bottom:10px;
+  }
+  .glass-grid{
+    display:grid;
+    grid-template-columns:repeat(8, 1fr);
+    gap:6px;
+  }
+  .glass-icon{
+    aspect-ratio:1;
+    background:#DCEBF3;
+    border:1.5px solid var(--blue);
+    border-radius:4px 4px 8px 8px;
+    position:relative;
+  }
+
+  .breakdown{
+    margin-top:18px;
+    display:grid;
+    gap:10px;
+  }
+  .breakdown-row{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 14px;
+    background:#F6F2E7;
+    border-radius:8px;
+  }
+  .breakdown-row .label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:#8A8878;
+  }
+  .breakdown-row .value{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px;
+    color:var(--ink);
+    font-weight:500;
+  }
+
+  .note{
+    margin-top:20px;
+    font-size:12px;
+    color:#9B9885;
+    line-height:1.5;
+  }
+  footer{
+    margin-top:22px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:#B0AD9A;
+    text-align:center;
+  }
+
+  .topconnect{display:flex; justify-content:space-between; align-items:center; margin-bottom:26px;}
+  .tc-back{font-family:'IBM Plex Sans', sans-serif; font-weight:600; font-size:13.5px; color:var(--teal); text-decoration:none;}
+  .tc-back:hover{color:var(--coral, var(--teal));}
+  .tc-all{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#8A8878; text-decoration:none;}
+  .tc-all:hover{color:var(--ink);}
+  .cta-strip{background:#EFF5F1; border:1px solid var(--teal-soft, var(--teal)); border-radius:10px; padding:18px 20px; margin-top:26px; display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;}
+  .cta-strip p{margin:0; font-size:13.5px; color:var(--ink); max-width:32ch;}
+  .cta-strip a.cta-btn{background:var(--teal); color:#fff; font-family:'IBM Plex Sans', sans-serif; font-weight:600; font-size:13px; padding:10px 18px; border-radius:100px; text-decoration:none; white-space:nowrap;}
+  .cta-strip a.cta-btn:hover{opacity:0.9;}
+  .other-tools{margin-top:22px;}
+  .other-tools .ot-label{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:#8A8878; margin-bottom:10px;}
+  .other-tools .ot-links{display:flex; flex-wrap:wrap; gap:8px;}
+  .other-tools .ot-links a{font-family:'IBM Plex Sans', sans-serif; font-size:12px; color:#5B5A50; text-decoration:none; border:1px solid var(--line); border-radius:100px; padding:6px 12px;}
+  .other-tools .ot-links a:hover{border-color:var(--teal); color:var(--teal);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topconnect">
+    <a href="../index.html" class="tc-back">&larr; ShapeWithSarita</a>
+    <a href="index.html" class="tc-all">All Free Tools</a>
+  </div>
+
+  <div class="eyebrow">09 / Hydration</div>
+  <h1>Water Intake Calculator</h1>
+  <p class="sub">A daily fluid target from your body weight, adjusted for activity and India's climate — because Chennai in May and Shimla in January aren't the same ask.</p>
+
+  <div class="card">
+    <div class="unit-toggle">
+      <button id="unit-kg" class="active" onclick="setUnit('kg')">KG</button>
+      <button id="unit-lb" onclick="setUnit('lb')">LB</button>
+    </div>
+
+    <div class="row" style="grid-template-columns:1fr; margin-bottom:20px;">
+      <div class="field">
+        <label>Body Weight</label>
+        <div class="inputbox">
+          <input type="number" id="weight" placeholder="65" inputmode="decimal">
+          <span class="unit" id="weight-unit">kg</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chip-select">
+      <label>Activity Today</label>
+      <div class="chip-row">
+        <button class="chip selected" data-add="0" onclick="selectChip(this, 'activity')">Low</button>
+        <button class="chip" data-add="0.35" onclick="selectChip(this, 'activity')">Moderate exercise</button>
+        <button class="chip" data-add="0.7" onclick="selectChip(this, 'activity')">Intense / long exercise</button>
+      </div>
+    </div>
+
+    <div class="chip-select">
+      <label>Climate</label>
+      <div class="chip-row">
+        <button class="chip selected" data-add="0" onclick="selectChip(this, 'climate')">Mild</button>
+        <button class="chip" data-add="0.3" onclick="selectChip(this, 'climate')">Hot / humid</button>
+        <button class="chip" data-add="0.5" onclick="selectChip(this, 'climate')">Peak summer / outdoors</button>
+      </div>
+    </div>
+
+    <button class="calc-btn" onclick="calculate()">Calculate My Target</button>
+
+    <div class="result" id="result">
+      <div>
+        <span class="water-number" id="water-value">—</span>
+        <span class="water-unit">litres / day</span>
+      </div>
+      <p class="water-desc">Total fluid target, including water and other drinks. Food (especially fruit, dal, curd) also contributes 15–20% of daily fluid.</p>
+
+      <div class="glasses">
+        <div class="label" id="glass-label">≈ — glasses (250 ml each)</div>
+        <div class="glass-grid" id="glass-grid"></div>
+      </div>
+
+      <div class="breakdown">
+        <div class="breakdown-row">
+          <span class="label">Base (body weight)</span>
+          <span class="value" id="row-base">—</span>
+        </div>
+        <div class="breakdown-row">
+          <span class="label">Activity add-on</span>
+          <span class="value" id="row-activity">—</span>
+        </div>
+        <div class="breakdown-row">
+          <span class="label">Climate add-on</span>
+          <span class="value" id="row-climate">—</span>
+        </div>
+      </div>
+
+      <p class="note">
+        Rule of thumb: pale straw-coloured urine is a decent sign you're well hydrated; darker than that usually means drink more. People with kidney or heart conditions should get a fluid target from their doctor instead of a general calculator.
+      </p>
+    </div>
+  </div>
+
+  <div class="cta-strip">
+    <p>Want a full plan built around this number — not just a calculator?</p>
+    <a class="cta-btn" href="../onboarding.html">Take the Free Assessment</a>
+  </div>
+
+  <div class="other-tools">
+    <div class="ot-label">More free tools</div>
+    <div class="ot-links">
+      <a href="bmi-calculator.html">BMI Calculator</a>
+<a href="bmr-calculator.html">BMR Calculator</a>
+<a href="tdee-calculator.html">TDEE Calculator</a>
+<a href="calorie-calculator-weight-loss.html">Calorie Calculator (Weight Loss)</a>
+<a href="calorie-deficit-calculator.html">Calorie Deficit Calculator</a>
+<a href="protein-calculator.html">Protein Calculator</a>
+<a href="ideal-weight-calculator.html">Ideal Weight Calculator</a>
+<a href="waist-to-height-ratio-calculator.html">Waist-to-Height Ratio</a>
+<a href="body-fat-calculator.html">Body Fat Calculator</a>
+    </div>
+  </div>
+
+  <footer>~35 ML PER KG BODYWEIGHT · ADJUSTED FOR ACTIVITY & CLIMATE</footer>
+</div>
+
+<script>
+let unit = 'kg';
+let activityAdd = 0;
+let climateAdd = 0;
+
+function setUnit(u){
+  unit = u;
+  document.getElementById('unit-kg').classList.toggle('active', u==='kg');
+  document.getElementById('unit-lb').classList.toggle('active', u==='lb');
+  document.getElementById('weight-unit').textContent = u;
+  document.getElementById('weight').placeholder = u==='kg' ? '65' : '143';
+}
+
+function selectChip(el, group){
+  const parent = el.parentElement;
+  parent.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  const val = parseFloat(el.dataset.add);
+  if(group === 'activity') activityAdd = val;
+  if(group === 'climate') climateAdd = val;
+}
+
+function calculate(){
+  const w = parseFloat(document.getElementById('weight').value);
+  if(!w){ shake(); return; }
+
+  const weightKg = unit === 'kg' ? w : w * 0.453592;
+  const baseL = weightKg * 0.035;
+  const totalL = baseL + activityAdd + climateAdd;
+  const totalRounded = Math.round(totalL * 10) / 10;
+
+  document.getElementById('water-value').textContent = totalRounded.toFixed(1);
+  document.getElementById('row-base').textContent = (Math.round(baseL*10)/10) + ' L';
+  document.getElementById('row-activity').textContent = '+' + activityAdd.toFixed(2) + ' L';
+  document.getElementById('row-climate').textContent = '+' + climateAdd.toFixed(2) + ' L';
+
+  const glasses = Math.round(totalL * 1000 / 250);
+  document.getElementById('glass-label').textContent = `≈ ${glasses} glasses (250 ml each)`;
+
+  const grid = document.getElementById('glass-grid');
+  grid.innerHTML = '';
+  for(let i=0; i<glasses; i++){
+    const g = document.createElement('div');
+    g.className = 'glass-icon';
+    grid.appendChild(g);
+  }
+
+  document.getElementById('result').classList.add('show');
+}
+
+function shake(){
+  const card = document.querySelector('.card');
+  card.style.transition = 'transform .08s';
+  card.style.transform = 'translateX(-4px)';
+  setTimeout(()=>{ card.style.transform='translateX(4px)'; }, 80);
+  setTimeout(()=>{ card.style.transform='translateX(0)'; }, 160);
+}
+</script>
+</body>
+</html>
