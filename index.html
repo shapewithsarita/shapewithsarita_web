@@ -183,6 +183,12 @@
   .faq-item.open .faq-a{max-height:220px;}
   .faq-a p{padding:0 4px 22px; font-size:14px; max-width:640px;}
 
+  /* ---------- TERMS & CONDITIONS VIEW ---------- */
+  .terms-container{background:var(--surface); border-radius:var(--radius); border:1px solid var(--line); padding:40px; box-shadow:0 8px 30px rgba(36,28,21,0.06); margin-top:30px;}
+  .terms-container h3{font-size:18px; color:var(--ink); margin-top:24px; margin-bottom:8px;}
+  .terms-container p, .terms-container li{font-size:14.5px; color:var(--ink-soft); line-height:1.7;}
+  .terms-container ul{padding-left:20px; margin-top:6px; list-style:disc;}
+
   /* ---------- CTA BAND ---------- */
   .cta-band{background:linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%); color:#fff; padding:70px 0; text-align:center; border-radius:28px; margin:0 28px;}
   .cta-band h2{color:#fff;}
@@ -245,7 +251,6 @@
       <button data-view="faq">FAQ</button>
     </nav>
     <div class="nav-actions">
-      <!-- <button class="btn btn-text" onclick="location.href='signin.html'">Login</button> -->
       <button class="btn btn-primary" onclick="location.href='onboarding.html'">Book Free Call Consultation</button>
       <button class="burger" aria-label="Menu" onclick="document.getElementById('mobilePanel').classList.toggle('open')"><span></span><span></span><span></span></button>
     </div>
@@ -418,6 +423,63 @@
   </div>
 </section>
 
+<!-- ============ TERMS & CONDITIONS ============ -->
+<section class="view" id="terms">
+  <div class="wrap" style="padding-top:64px; padding-bottom:96px;">
+    <div class="eyebrow">Legal Information</div>
+    <h2>Client Terms & Conditions</h2>
+    <p class="lede" style="margin-top:8px;">Nutrition & Fitness Coaching ShapeWithSarita</p>
+    
+    <div class="terms-container">
+      <p><strong>Coach:</strong> Sarita Nawar | Certified Nutrition & Fitness Coach<br>
+      <strong>Phone:</strong> 7903805368 | <strong>Website:</strong> www.shapewithsarita.com<br>
+      <strong>Email:</strong> diet@shapewithsarita.in</p>
+
+      <h3>1. Coaching Services</h3>
+      <p>The coaching program provides personalized nutrition and fitness guidance based on the information provided by the client. Services may include nutrition guidance, workout plans, lifestyle recommendations, progress monitoring, and general health and fitness education.</p>
+
+      <h3>2. Client Responsibility</h3>
+      <p>The client is responsible for providing accurate and complete information regarding their health history, current lifestyle, medications, allergies, dietary preferences, injuries, physical limitations, and other relevant information. The client must inform the coach immediately of any changes in their health or circumstances during the coaching period.</p>
+
+      <h3>3. Medical Disclaimer</h3>
+      <p>Nutrition and fitness coaching is intended for general health, fitness, and lifestyle support. It is not a substitute for medical diagnosis, treatment, or advice from a qualified doctor or other healthcare professional. Clients with a medical condition, injury, pregnancy, or other health concern must consult an appropriate healthcare professional before starting or changing their diet or exercise routine.</p>
+
+      <h3>4. Exercise Safety & Limitation of Liability</h3>
+      <p>Clients perform exercises entirely at their own risk and according to their current fitness level. If an exercise causes pain, dizziness, unusual shortness of breath, or other concerning symptoms, the client must stop exercising and seek medical advice. The coach, business, and its representatives are not responsible or liable for any injury, damage, or health complications resulting from incorrect exercise technique, exceeding recommended limits, undisclosed health conditions, or failure to follow instructions.</p>
+
+      <h3>5. Individual Results</h3>
+      <p>Results vary from person to person and depend on factors such as consistency, nutrition, exercise, sleep, stress, lifestyle, genetics, and individual health circumstances. No specific amount of weight loss, muscle gain, or other physical result is guaranteed.</p>
+
+      <h3>6. Communication & Support</h3>
+      <p>Clients are expected to communicate clearly and provide necessary updates regarding their progress. Response times may vary depending on the coach's working hours and availability. Coaching does not provide 24/7 emergency support. For medical emergencies, clients should contact local emergency services immediately.</p>
+
+      <h3>7. Payments</h3>
+      <p>All coaching fees must be paid in full according to the agreed payment schedule before the relevant coaching service or plan delivery begins. Fees, package details, and durations are communicated prior to enrollment.</p>
+
+      <h3>8. Cancellation & Refunds</h3>
+      <p>Due to the digital and personalized nature of the coaching services, <strong>all payments are strictly non-refundable</strong> once a program, meal plan, or workout routine has been prepared, delivered, or initiated.</p>
+
+      <h3>9. Personal Information & Privacy</h3>
+      <p>Information provided by the client will be treated as confidential and used strictly for managing the coaching service. Client information will not be shared with third parties except where required by law or with the client’s explicit consent.</p>
+
+      <h3>10. Photos & Testimonials</h3>
+      <p>Client photographs, progress pictures, testimonials, or success stories will not be used for promotional or social media purposes without the client’s prior permission.</p>
+
+      <h3>11. Intellectual Property & Personalized Plans</h3>
+      <p>All personalized nutrition plans, workout sheets, guides, and materials provided are the intellectual property of Shape with Sarita. They are prepared specifically for the enrolled client and must not be shared, copied, sold, or distributed. Violation may result in immediate termination of coaching without refund.</p>
+
+      <h3>12. Program Changes</h3>
+      <p>The coach reserves the right to modify a nutrition or fitness plan when necessary based on the client's progress, feedback, schedule, preferences, or changing circumstances.</p>
+
+      <h3>13. Governing Law</h3>
+      <p>These Terms & Conditions shall be governed by and construed in accordance with the laws of India.</p>
+
+      <h3>14. Client Agreement</h3>
+      <p>By purchasing, booking, or enrolling in the coaching program, the client confirms that they have read, understood, and agreed to these Terms & Conditions.</p>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <footer>
@@ -441,7 +503,7 @@
         <ul>
           <li><a href="#" onclick="showView('about');return false;">About Sarita</a></li>
           <li><a href="#" onclick="showView('faq');return false;">FAQ</a></li>
-          <li><a href="#" onclick="notReady();return false;">Blog</a></li>
+          <li><a href="#" onclick="showView('terms');return false;">Terms & Conditions</a></li>
         </ul>
       </div>
       <div>
@@ -466,8 +528,8 @@
 
 <script>
   const programs = [
-    {tag:'Homemakers', color:'', name:'Homemaker Elite', desc:"Specifically designed for homemakers and women managing full-time household responsibilities who prepare meals for their families and need a sustainable fitness routine without cooking separate food or joining a gym.", includes:['20-minute home workouts','Family-friendly Indian meals','Daily WhatsApp accountability','Weekly progress review'], durations:[{label:'1 Month', price:'₹1,999'},{label:'12 Weeks', price:'₹4,999'},{label:'24 Weeks', price:'₹9,999'}]},
-    {tag:'Working Women', color:'c-teal', name:'Fit Professional', desc:'Specifically designed for working women and career professionals juggling demanding 9-to-6 schedules, back-to-back meetings, daily commutes, irregular eating windows, and high-stress office environments.', includes:['20–30 minute workouts','Office & Swiggy/Zomato-friendly meals','Step & sleep targets','Weekly accountability'], durations:[{label:'1 Month', price:'₹1,999'},{label:'12 Weeks', price:'₹4,999'},{label:'24 Weeks', price:'₹9,999'}]},
+    {tag:'Homemakers', color:'', name:'Homemaker Elite', desc:"Specifically designed for homemakers and women managing full-time household responsibilities who prepare meals for their families and need a sustainable fitness routine without cooking separate food or joining a gym.", includes:['20-minute home workouts','Family-friendly Indian meals','Daily WhatsApp accountability','Weekly progress review','Puase plan 7-day (For 12-24 week plan only)'], durations:[{label:'1 Month', price:'₹1,999'},{label:'12 Weeks', price:'₹4,999'},{label:'24 Weeks', price:'₹9,999'}]},
+    {tag:'Working Women', color:'c-teal', name:'Fit Professional', desc:'Specifically designed for working women and career professionals juggling demanding 9-to-6 schedules, back-to-back meetings, daily commutes, irregular eating windows, and high-stress office environments.', includes:['20–30 minute workouts','Office & Swiggy/Zomato-friendly meals','Step & sleep targets','Weekly accountability','Puase plan 7-day (For 12-24 week plan only)'], durations:[{label:'1 Month', price:'₹1,999'},{label:'12 Weeks', price:'₹4,999'},{label:'24 Weeks', price:'₹9,999'}]},
     {tag:'Senior Women', color:'c-teal', name:'Ageless Grace', desc:'Specifically designed for senior women and mature adults seeking dedicated long-term care focused on gentle, low-impact movement to enhance joint health, improve bone density, and maintain complete functional independence.', includes:['20–30 minute workouts','Office & Swiggy/Zomato-friendly meals','Step & sleep targets','Weekly accountability'], duration:'8-24 weeks', price:'On request'},
     {tag:'New Mothers', color:'c-gold', name:'New Mom Reset', desc:"A gentle, postpartum-friendly path back to strength and energy on your baby's schedule, not a fixed one.", includes:['Postpartum-safe movement','Energy-focused nutrition','Flexible daily check-ins','Monthly consultation'], duration:'8–24 weeks', price:'On request'},
   ];
