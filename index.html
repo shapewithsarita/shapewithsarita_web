@@ -245,6 +245,7 @@
       <button data-view="home">Home</button>
       <button data-view="tools">Free Tools</button>
       <button data-view="programs">Programs</button>
+      <button data-view="intl-clients">International Clients 🌍</button>
       <button data-view="how-it-works">How It Works</button>
       <button data-view="results">Results</button>
       <button data-view="about">About</button>
@@ -259,6 +260,7 @@
     <button data-view="home">Home</button>
     <button data-view="tools">Free Tools</button>
     <button data-view="programs">Programs</button>
+    <button data-view="intl-clients">International Clients 🌍</button>
     <button data-view="how-it-works">How It Works</button>
     <button data-view="results">Results</button>
     <button data-view="about">About</button>
@@ -367,6 +369,79 @@
     <h2>Built around your life stage, not a generic category.</h2>
     <p class="lede" style="margin-top:16px;">Every program includes an Indian-food-friendly nutrition plan, home-friendly workouts, and real accountability over WhatsApp, weekly reviews, or both.</p>
     <div class="card-grid" id="fullProgramCards"></div>
+  </div>
+</section>
+
+<!-- ============ INTERNATIONAL CLIENTS ============ -->
+<section class="view" id="intl-clients">
+  <div class="wrap hero" style="padding-top:64px;">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Online coaching for Indian women, wherever you live</div>
+        <h1>Get Fit Anywhere in the World <span class="hl">Without Losing Your Indian Kitchen.</span></h1>
+        <p class="lede">Wherever you live outside India — same Indian food, family life and WhatsApp accountability you'd get back home, delivered online and timed around your schedule.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-primary" onclick="location.href='onboarding.html'">Start Your 7-Day Free Plan</button>
+          <button class="btn btn-ghost" onclick="window.open('https://wa.me/917903805368?text=Hi%20Sarita,%20I%27m%20based%20outside%20India%20and%20I%27d%20like%20to%20know%20more%20about%20your%20coaching%20programs.', '_blank')">💬 Message Sarita (International enquiries)</button>
+        </div>
+        <div class="chip-row">
+          <span class="chip">🕐 Flexible slots across time zones</span>
+          <span class="chip">💵 One simple price in USD</span>
+          <span class="chip">📱 100% online — WhatsApp &amp; video calls</span>
+        </div>
+      </div>
+      <div>
+        <div class="chat-card">
+          <div class="chat-head"><span class="dot"></span><div><div class="cname">Sarita 🌿</div><div class="cstatus">online now · replies across time zones</div></div></div>
+          <div class="chat-body">
+            <div class="bubble in">Morning Anjali ❤️ Today: 20-min home workout before work + 7 glasses water.</div>
+            <div class="bubble out">Done before work! Even had time for chai 😄</div>
+            <div class="bubble in">That's the spirit! Same plan tomorrow 🌸</div>
+          </div>
+          <div class="chat-caption">Same daily accountability — however far from home you are.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="two-col">
+      <div>
+        <div class="eyebrow">Why clients abroad choose Sarita</div>
+        <h2>Missing the food and family structure of home shouldn't mean missing your goals.</h2>
+      </div>
+      <div>
+        <p class="lede">Most local fitness apps and gyms assume you're eating Western meals and keeping a flexible daytime schedule. If you're managing a job or family abroad with a kitchen that still runs on dal, roti and rice, you need a plan that understands that not one that asks you to swap it all out.</p>
+        <div class="chip-row">
+          <span class="chip"><span class="x">✕</span>Generic Western meal plans</span>
+          <span class="chip"><span class="x">✕</span>Local-gym-hour assumptions</span>
+          <span class="chip"><span class="x">✕</span>Time-zone-unfriendly coaching</span>
+          <span class="chip"><span class="x">✕</span>One-size-fits-all diets</span>
+        </div>
+        <button class="btn btn-primary" style="margin-top:28px;" onclick="showView('how-it-works')">See How It Works</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" style="padding-top:88px;">
+    <div class="eyebrow">Programs · Priced in USD</div>
+    <h2>The same coaching, built for life outside India.</h2>
+    <p class="lede" style="margin-top:16px;">Home workouts that fit around your local working hours, Indian-food-friendly nutrition (adapted to what's realistically available in your country), and daily WhatsApp check-ins scheduled around your time zone. One simple USD price, wherever you're joining from.</p>
+    <div class="card-grid" id="intlProgramCards"></div>
+    <p class="bmi-note" style="margin-top:18px;">Prices shown in USD for all international clients. Payment links are sent after your free consultation call, once your plan and duration are confirmed.</p>
+  </div>
+
+  <div class="wrap" style="padding-top:6px;">
+    <div class="cta-band">
+      <div class="wrap">
+        <h2>Living outside India? Let's build a plan that fits your life there.</h2>
+        <p>Message Sarita directly on WhatsApp, or take the free 2-minute assessment first — both work fine from any time zone.</p>
+        <div class="btns">
+          <button class="btn btn-whatsapp" onclick="window.open('https://wa.me/917903805368?text=Hi%20Sarita,%20I%27m%20based%20outside%20India%20and%20I%27d%20like%20to%20know%20more%20about%20your%20coaching%20programs.', '_blank')">💬 Chat on WhatsApp</button>
+          <button class="btn btn-primary" onclick="location.href='onboarding.html'">Take Free Assessment</button>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -494,6 +569,7 @@
         <ul>
           <li><a href="#" onclick="showView('tools');return false;">Free Tools</a></li>
           <li><a href="#" onclick="showView('programs');return false;">Programs</a></li>
+          <li><a href="#" onclick="showView('intl-clients');return false;">International Clients 🌍</a></li>
           <li><a href="#" onclick="showView('how-it-works');return false;">How It Works</a></li>
           <li><a href="#" onclick="showView('results');return false;">Results</a></li>
         </ul>
@@ -578,6 +654,14 @@
   }
   document.getElementById('homeProgramCards').innerHTML = programs.map((p,i)=>programCard(p,false,`home-${i}`)).join('');
   document.getElementById('fullProgramCards').innerHTML = programs.map((p,i)=>programCard(p,true,`full-${i}`)).join('');
+
+  const intlPrograms = [
+    {tag:'Homemakers', color:'', name:'Homemaker Elite', desc:"For homemakers abroad managing the household who cook for the family and want a sustainable routine without separate meals or a gym.", includes:['20-minute home workouts','Indian meals using locally-available ingredients','Daily WhatsApp accountability, timed to your zone','Weekly progress review','Pause plan 7-day (For 12-24 week plan only)'], durations:[{label:'1 Month', price:'$49/-'},{label:'12 Weeks', price:'$129/- (<s>$147/-</s>)'},{label:'24 Weeks', price:'$249/- (<s>$294/-</s>)'}]},
+    {tag:'Working Women', color:'c-teal', name:'Fit Professional', desc:'For working women abroad juggling office or shift schedules, commutes, and irregular eating windows, without giving up Indian food.', includes:['20–30 minute workouts','Meal-prep &amp; takeaway-friendly plans','Step &amp; sleep targets','Weekly accountability call/WhatsApp','Pause plan 7-day (For 12-24 week plan only)'], durations:[{label:'1 Month', price:'$49/-'},{label:'12 Weeks', price:'$129/- (<s>$147/-</s>)'},{label:'24 Weeks', price:'$249/- (<s>$294/-</s>)'}]},
+    {tag:'New Mothers', color:'c-gold', name:'New Mom Reset', desc:"A gentle, postpartum-friendly path back to strength and energy on your baby's schedule — for mums settling in far from family support.", includes:['Postpartum-safe movement','Energy-focused Indian nutrition','Flexible daily check-ins','Monthly video consultation'], duration:'8–24 weeks', price:'On request'},
+    {tag:'Senior Women', color:'c-teal', name:'Ageless Grace', desc:'For senior Indian-origin women abroad seeking gentle, low-impact movement to support joint health, bone density and independence.', includes:['20–30 minute workouts','Locally-available-food-friendly meals','Step &amp; sleep targets','Weekly accountability'], duration:'8–24 weeks', price:'On request'},
+  ];
+  document.getElementById('intlProgramCards').innerHTML = intlPrograms.map((p,i)=>programCard(p,true,`intl-${i}`)).join('');
 
   const steps = [
     {t:'Take the Free 2-Minute Assessment', d:'A quick set of questions about your goal, schedule, food preferences and biggest obstacle no signup wall.'},
