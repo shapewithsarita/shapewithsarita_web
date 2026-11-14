@@ -62,6 +62,9 @@
   nav.links a, .mobile-panel a{font-family:var(--body); font-size:14.5px; font-weight:600; color:var(--ink-soft); padding:9px 14px; border-radius:999px;}
   nav.links a:hover{color:var(--ink); background:rgba(0,0,0,0.04);}
   .mobile-panel a{display:block; text-align:left; padding:13px 6px; font-size:15px; border-bottom:1px solid var(--line); border-radius:0;}
+  nav.links button.nav-intl{background:var(--teal-soft); color:var(--teal-dark); font-weight:700;}
+  nav.links button.nav-intl:hover{background:var(--teal); color:#fff;}
+  nav.links button.nav-intl.active{background:var(--teal); color:#fff;}
   .nav-actions{display:flex; align-items:center; gap:10px;}
   .btn{font-family:var(--body); font-weight:700; font-size:14px; padding:12px 22px; border-radius:999px; display:inline-flex; align-items:center; gap:8px; transition:transform .15s ease, background .15s ease, box-shadow .15s ease;}
   .btn-primary{background:var(--coral); color:#fff; box-shadow:0 6px 16px rgba(221,91,62,0.28);}
@@ -233,6 +236,7 @@
   /* ---------- floating whatsapp ---------- */
   .float-wa{position:fixed; bottom:26px; right:26px; width:56px; height:56px; border-radius:50%; background:#25D366; color:#fff; display:flex; align-items:center; justify-content:center; font-size:26px; box-shadow:0 10px 26px rgba(37,211,102,0.4); z-index:60;}
 
+  @media(max-width:1120px){nav.links{display:none;} .burger{display:flex;}}
   @media(max-width:900px){
     nav.links{display:none;} .burger{display:flex;}
     .hero-grid, .about-hero, .two-col{grid-template-columns:1fr; gap:38px;}
@@ -261,6 +265,7 @@
     <nav class="links">
       <button data-view="programs">Programs</button>
       <button data-view="tools">Free Tools</button>
+      <button data-view="intl-clients" class="nav-intl">🌍 International Clients</button>
       <button data-view="about">About</button>
       <button data-view="faq">FAQ</button>
       <a href="/blog/">Blog</a>
