@@ -6,7 +6,7 @@ var CFG={endpoint:'',whatsapp:'917903805368',payLink:''};
 var GOALS=['Lose weight','Get stronger and toned','Recover after baby','Plan for my parent (60+)','Something else'];
 var K={
 plan:{t:'Get your free 7-day Indian meal and workout plan',s:'Tell me where to send it. Sarita replies personally on WhatsApp.',b:'Send me the free plan',g:GOALS,
- m:function(d){return 'Hi Sarita, please send my free 7-day plan.\nName: '+d.name+'\nGoal: '+d.goal}},
+ m:function(d){return 'Hi Sarita, please send my  7-day plan.\nName: '+d.name+'\nGoal: '+d.goal}},
 parent:{t:"Free checklist: fall-proof your parent's home",s:'Get the printable room-by-room checklist on WhatsApp.',b:'Send me the free checklist',who:1,
  m:function(d){return 'Hi Sarita, please send the free fall-proofing checklist.\nName: '+d.name+'\nFor: '+d.who}},
 book:{t:'Get Stronger After 60',s:'Rs 499 · Book + free 14-day nutrition plan',b:'Continue on WhatsApp',who:1,email:1,
@@ -70,7 +70,7 @@ function init(){
   var ft=document.querySelector('footer');if(ft){ft.parentNode.insertBefore(au,ft);ft.parentNode.insertBefore(w,ft)}else{document.body.appendChild(au);document.body.appendChild(w)}
  }
  [].forEach.call(document.querySelectorAll('[data-lead-form]'),build);
- if(!window.SWS_NOBAR&&!document.querySelector('.sticky')){document.body.appendChild(el('<div class="swbar"><a class="p" href="'+LAND+'">Free 7-Day Plan</a><a class="w" href="https://wa.me/'+CFG.whatsapp+'?text=Hi%20Sarita" target="_blank" rel="noopener">💬 WhatsApp</a></div>'));document.body.classList.add('hasbar')}
+ if(!window.SWS_NOBAR&&!document.querySelector('.sticky')){document.body.appendChild(el('<div class="swbar"><a class="p" href="'+LAND+'"> 7-Day Plan </a><a class="w" href="https://wa.me/'+CFG.whatsapp+'?text=Hi%20Sarita" target="_blank" rel="noopener">💬 WhatsApp</a></div>'));document.body.classList.add('hasbar')}
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 window.SWS={config:CFG};
