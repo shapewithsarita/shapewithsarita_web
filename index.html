@@ -233,6 +233,16 @@
 
   .band{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;background:var(--teal-soft);border-radius:24px;padding:34px 36px}.band.gold{background:var(--gold-soft)}.band h2{font-size:clamp(22px,2.6vw,30px)}.band-actions{display:flex;gap:12px;flex-wrap:wrap}
   .coachline{display:flex;align-items:center;gap:12px;margin-top:26px;font-size:14px;color:var(--ink-soft);line-height:1.4}.coachline img{width:56px;height:56px;border-radius:50%;object-fit:cover;flex-shrink:0}.coachline b{color:var(--ink)}
+  /* ---------- mobile bottom bar ---------- */
+  .mbar{display:none;}
+  @media(max-width:760px){
+    .mbar{display:flex; gap:10px; position:fixed; left:0; right:0; bottom:0; z-index:60; padding:10px 12px calc(10px + env(safe-area-inset-bottom)); background:rgba(253,246,238,0.96); border-top:1px solid #EEE1D0; backdrop-filter:blur(8px);}
+    .mbar a{flex:1; display:flex; align-items:center; justify-content:center; min-height:48px; border-radius:999px; font-weight:700; font-size:15px; text-decoration:none; color:#fff;}
+    .mbar .m1{background:#DD5B3E;} .mbar .m2{background:#25D366;}
+    .float-wa{display:none !important;}
+    body{padding-bottom:72px;}
+  }
+
   /* ---------- floating whatsapp ---------- */
   .float-wa{position:fixed; bottom:26px; right:26px; width:56px; height:56px; border-radius:50%; background:#25D366; color:#fff; display:flex; align-items:center; justify-content:center; font-size:26px; box-shadow:0 10px 26px rgba(37,211,102,0.4); z-index:60;}
 
@@ -272,7 +282,7 @@
       <a href="/stronger-after-60/">For Seniors 60+</a>
     </nav>
     <div class="nav-actions">
-      <button class="btn btn-primary" onclick="location.href='/free-7-day-weight-loss-plan-for-indian-women/'">7-Day Plan · ₹99</button>
+      <button class="btn btn-primary" onclick="location.href='/7-day-plan-99/'">7-Day Plan · ₹99</button>
       <button class="burger" aria-label="Menu" onclick="document.getElementById('mobilePanel').classList.toggle('open')"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -298,7 +308,7 @@
         <h1>Online Weight Loss Coach for Indian Women: <span class="hl">Get Fit Without Giving Up Your Family Life.</span></h1>
         <p class="lede">Lose weight with an Indian diet plan built on the roti, dal and sabzi you already cook, 20-minute home workouts and daily WhatsApp coaching from a certified nutrition coach.</p>
         <div class="hero-ctas">
-          <button class="btn btn-primary" onclick="location.href='/free-7-day-weight-loss-plan-for-indian-women/'">Get My 7-Day Plan for ₹99</button>
+          <button class="btn btn-primary" onclick="location.href='/7-day-plan-99/'">Get My 7-Day Plan for ₹99</button>
           <button class="btn btn-ghost" onclick="window.open('https://wa.me/917903805368?text=Hi%20Sarita,%20I%20want%20to%20know%20more%20about%20your%20coaching.','_blank')">💬 Chat on WhatsApp</button>
         </div>
         <div class="coachline"><img src="cochsarita.jpeg" alt="Sarita Nawar, certified nutrition coach" width="56" height="56" fetchpriority="high"><span><b>Sarita Nawar</b><br>Certified Nutrition Coach and Strength &amp; Conditioning Coach</span></div>
@@ -397,7 +407,7 @@
         <div><span class="num" id="bmiNum">—</span></div>
         <div class="cat" id="bmiCat">Enter your height and weight above</div>
       </div>
-      <p class="bmi-note">BMI is a starting point, not the full picture it doesn't account for muscle, frame or fat distribution. <a href="tools/bmi-calculator.html" style="color:var(--coral-dark); font-weight:600;">Open the full BMI calculator →</a> · <a href="/free-7-day-weight-loss-plan-for-indian-women/" style="color:var(--coral-dark); font-weight:600;">Get a 7-day plan for your number (₹99) →</a></p>
+      <p class="bmi-note">BMI is a starting point, not the full picture it doesn't account for muscle, frame or fat distribution. <a href="tools/bmi-calculator.html" style="color:var(--coral-dark); font-weight:600;">Open the full BMI calculator →</a> · <a href="/7-day-plan-99/" style="color:var(--coral-dark); font-weight:600;">Get a 7-day plan for your number (₹99) →</a></p>
     </div>
 
     <h3 style="margin-top:48px; margin-bottom:6px; font-size:20px;">The full ShapeWithSarita Toolkit</h3>
@@ -425,7 +435,7 @@
         <h2>Online Weight Loss Coaching for Indian Women Abroad: <span class="hl">Keep Your Indian Kitchen.</span></h2>
         <p class="lede">Wherever you live outside India — same Indian food, family life and WhatsApp accountability you'd get back home, delivered online and timed around your schedule.</p>
         <div class="hero-ctas">
-          <button class="btn btn-primary" onclick="location.href='/free-7-day-weight-loss-plan-for-indian-women/?cur=usd'">Start Your 7-Day Plan · $5</button>
+          <button class="btn btn-primary" onclick="location.href='/7-day-plan-99/?cur=usd'">Start Your 7-Day Plan · $5</button>
           <button class="btn btn-ghost" onclick="window.open('https://wa.me/917903805368?text=Hi%20Sarita,%20I%27m%20based%20outside%20India%20and%20I%27d%20like%20to%20know%20more%20about%20your%20coaching%20programs.', '_blank')">💬 Message Sarita (International enquiries)</button>
         </div>
         <div class="chip-row">
@@ -482,7 +492,7 @@
         <p>Message Sarita directly on WhatsApp, or start with the 7-day plan first — both work fine from any time zone.</p>
         <div class="btns">
           <button class="btn btn-whatsapp" onclick="window.open('https://wa.me/917903805368?text=Hi%20Sarita,%20I%27m%20based%20outside%20India%20and%20I%27d%20like%20to%20know%20more%20about%20your%20coaching%20programs.', '_blank')">💬 Chat on WhatsApp</button>
-          <button class="btn btn-primary" onclick="location.href='/free-7-day-weight-loss-plan-for-indian-women/?cur=usd'">Get the 7-Day Plan · $5</button>
+          <button class="btn btn-primary" onclick="location.href='/7-day-plan-99/?cur=usd'">Get the 7-Day Plan · $5</button>
         </div>
       </div>
     </div>
@@ -523,7 +533,7 @@
         <h2>Sarita Nawar: certified nutrition and fitness coach for Indian women</h2>
         <p class="lede" style="margin-top:18px;">I got into coaching because I kept meeting women who'd tried every diet plan on the internet and still felt stuck not because they lacked willpower, but because the plans assumed a life they didn't have. No separate meals. No spare hour every morning. No guilt when the week goes sideways.</p>
         <p style="margin-top:16px; font-size:18px; max-width:520px;">Every client I work with gets a plan built around her actual routine homemaker, working professional, or new mother and daily accountability so she isn't figuring it out alone.</p>
-        <button class="btn btn-primary" style="margin-top:28px;" onclick="location.href='/free-7-day-weight-loss-plan-for-indian-women/'">Start With Sarita</button>
+        <button class="btn btn-primary" style="margin-top:28px;" onclick="location.href='/7-day-plan-99/'">Start With Sarita</button>
       </div>
     </div>
     <div class="cred-grid">
@@ -645,6 +655,8 @@
     </div>
   </div>
 </footer>
+<div class="mbar"><a class="m1" href="/7-day-plan-99/">7-Day Plan · ₹99</a><a class="m2" href="https://wa.me/917903805368?text=Hi%20Sarita,%20I%20want%20to%20know%20more." target="_blank" rel="noopener">💬 WhatsApp</a></div>
+<script>window.SWS_NOBAR=1</script>
 
 <a class="float-wa" href="https://wa.me/917903805368?text=Hi%20Sarita,%20I%20want%20to%20know%20more%20about%20your%20coaching%20programs." target="_blank" aria-label="Chat on WhatsApp">💬</a>
 <div class="toast" id="toast"><span class="dot"></span><span id="toastText"></span></div>
