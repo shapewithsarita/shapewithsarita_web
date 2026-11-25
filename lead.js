@@ -14,7 +14,7 @@ book:{t:'Get Stronger After 60',s:'Rs 499 · Book + free 14-day nutrition plan',
 founding:{t:'Apply for a Founding Client spot',s:'Only 5 spots. Sarita will message you to check it is a good fit.',b:'Apply on WhatsApp',g:GOALS,
  m:function(d){return 'Hi Sarita, I would like to apply for a Founding Client spot.\nName: '+d.name+'\nGoal: '+d.goal}}
 };
-var LAND='/7-day-plan-99/';
+var LAND='/7-day-plan-99/index.html';
 var css='.swbar{display:none}@media(max-width:820px){.swbar{display:flex;position:fixed;left:0;right:0;bottom:0;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(253,246,238,.97);border-top:1px solid #EEE1D0;z-index:70}.swbar a{flex:1;text-align:center;padding:14px 8px;border-radius:999px;font:700 16px Inter,sans-serif;color:#fff;text-decoration:none;min-height:44px;box-sizing:border-box}.swbar .p{background:#DD5B3E}.swbar .w{background:#25D366}body.hasbar{padding-bottom:76px}.float-wa{display:none!important}}'+
 '.swsl{max-width:640px;margin:0 auto;background:#fff;border:1px solid #EEE1D0;border-radius:20px;padding:28px;box-shadow:0 14px 36px rgba(36,28,21,.08);color:#241C15;text-align:left;position:relative}'+
 '.swsl .swt{font:700 24px/1.2 Poppins,Inter,sans-serif;margin:0 0 6px;color:#241C15}.swsl .sws{color:#6B5D4E;font-size:16px;margin:0 0 14px}'+
